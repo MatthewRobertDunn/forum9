@@ -1,0 +1,1 @@
+HUGGING_API_KEY = "put your key here"

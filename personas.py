@@ -1,0 +1,1 @@
+Personas = ["Ayn Rand", "Pythagoras", "Luke Skywalker"]

@@ -31,27 +31,13 @@ class Somad:
 
         self.messages.append(new_message)
 
-    def send(self, content: str):
-        new_message = {
-            "role": "user",
-            "content": content
-        }
-
-        self.messages.append(new_message)
-
-        try:
-            response = client.chat.completions.create(
+    def respond(self):
+        response = client.chat.completions.create(
                 model=self.model, 
 	            messages=self.messages, 
 	            temperature=self.temperature,
 	            max_tokens=self.max_tokens,
 	            top_p=self.top_p
             )
-        except Exception as ex:
-            self.messages.pop(1)
-            time.sleep(1)
-            return self.send(content)
-
         response_message = response.choices[0].message
-        self.messages.append(response_message)
         return response_message.content

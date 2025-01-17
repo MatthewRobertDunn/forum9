@@ -1,17 +1,23 @@
-import personality as personality
-#import contestant as contestant
+from agent import Agent
+from generic_persona import GenericPersona
+from personas import Personas
 
-announcer = personality.Somad()
-#contestant = contestant.Contestent()
-
-
-message = announcer.send("I'm here. Let's begin the show")
-print(message)
-
-#while True:
-    #message = contestant.send_gpt(message)
-    #print("----Contestant----")
-    #print(message)
-    #message = announcer.send_gpt(message)
-    #print("----Announcer----")
-    #print(message)
+post = ["""<user>
+What's your favourite color?
+"""]
+print(post[0])
+for int in range(20):
+    agent = Agent()
+    agent.add_message("\n".join(post))
+    chosen_persona = agent.respond()
+    if(chosen_persona not in Personas):
+        chosen_persona = "END"
+    if(chosen_persona == "END"): 
+        print("END")
+        break
+    print(f"Responding Persona: {chosen_persona}")
+    persona = GenericPersona(chosen_persona)
+    persona.add_message("\n".join(post))
+    response = persona.respond()
+    print(response)
+    post.append(f"<{chosen_persona}>\n{response}")

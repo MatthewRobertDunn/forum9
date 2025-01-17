@@ -3,7 +3,7 @@ from generic_persona import GenericPersona
 from personas import Personas
 
 post = ["""<user>
-What's your favourite color?
+What is Doctor Hannibal Lecter a doctor of, exactly?
 """]
 print(post[0])
 for int in range(20):

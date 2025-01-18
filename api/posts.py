@@ -4,7 +4,6 @@ from boto3.dynamodb.conditions import Key
 from datetime import datetime, timezone
 from config import TABLE_NAME
 from request_handler import handle_request
-
 def handle(year = None, **kwargs):
     # Initialize a session using Amazon DynamoDB
     dynamodb = boto3.resource('dynamodb')

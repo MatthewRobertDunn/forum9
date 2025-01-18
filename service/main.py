@@ -1,4 +1,4 @@
-from datetime import time
+import time
 import boto3
 from config import QUEUE_URL
 from message_handler import handle_request

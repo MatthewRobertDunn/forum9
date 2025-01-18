@@ -4,12 +4,7 @@ from generic_persona import GenericPersona
 from personas import Personas
 
 def generate_post(question: str, id: str) -> Dict[str, any]:
-    result = [
-        {
-            "persona": "user" ,
-            "content": question
-        }
-    ]
+    result = []
     ai_input = [f"<user>\n{question}"]
     print(ai_input[0])
     for int in range(20):

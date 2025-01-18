@@ -6,7 +6,6 @@ class MethodNotAllowed(Exception):
     pass
 
 def handle_request(service_function):
-    print("Content-Type: application/json\n")  
     try:
         # Check if the request method is POST
         if 'REQUEST_METHOD' not in os.environ or os.environ['REQUEST_METHOD'] != 'POST':
@@ -21,6 +20,6 @@ def handle_request(service_function):
     except Exception as e:
         response = {"status": "error", "message": str(e)}
         print("Status: 500 Internal Server Error")
-    
+    print("Content-Type: application/json\n")      
     print()  # Blank line separating headers from body
     print(json.dumps(response))

@@ -3,4 +3,4 @@ Personas = ["Ayn Rand", "Pythagoras", "Luke Skywalker", "Stephen Hawking", "Albe
             "Confucius", "Yoda", "Elon Musk","Mark Zuckerberg", "Agent Smith", "Trinity (Matrix)", "Jeffrey Dahmer", 
             "The Joker","The Terminator", "Aristotle", "Batman", "Wonder Woman","The Pope", "Zeus","Jesus Christ","Odin", "Buddha", "Pink Panther",
             "Princess Bubblegum", "Alan Turing", "Linus Torvalds", "Sigourney Weaver", "Princess Leia Organa",
-            "Jehovah", "Lisa Simpson", "Bart Simpson", "SpongeBob SquarePants", "Twilight Sparkle", "Hannibal Lecter"]
+            "Jehovah", "Lisa Simpson", "Bart Simpson", "Twilight Sparkle", "Hannibal Lecter"]

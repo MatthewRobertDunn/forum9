@@ -7,6 +7,7 @@ def handle_request(question: str, id: str):
     post = {
             "year": created_date.year,
             "created_date": created_date.isoformat(),
+            "id": id,
             "question": question,
             "post": post
            }

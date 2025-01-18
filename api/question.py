@@ -13,7 +13,7 @@ def post_work(body, **kwargs):
     # Send the message to the SQS queue
     response = sqs.send_message(
         QueueUrl=QUEUE_URL,
-        MessageBody=body['message'].trim()  # Convert the dictionary to a JSON string
+        MessageBody=body['message'].strip()  # Convert the dictionary to a JSON string
     )
     # Print the response
     return response['MessageId']

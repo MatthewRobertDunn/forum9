@@ -9,7 +9,6 @@ def handle(year = None, **kwargs):
     dynamodb = boto3.resource('dynamodb')
     table = dynamodb.Table(TABLE_NAME)
     # Query the table
-
     try:
         year = int(year)
     except:
@@ -17,7 +16,8 @@ def handle(year = None, **kwargs):
 
     response = table.query(
         KeyConditionExpression=Key('year').eq(year),
-        ScanIndexForward=False,  # False to order by descending
+        ProjectionExpression='id, question, created_date',
+        ScanIndexForward=False,  # False to order by descending,
     )
 
     # Extract the items from the response

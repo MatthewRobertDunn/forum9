@@ -11,7 +11,7 @@ Avoid selecting a persona to respond to their own post
 Do not use any tags in your response such as the <PERSONA> tag
 If the discussion is long enough and has come to a natural stopping point, respond with END
 The discussion forum is 18+ and satirical. Don't worry about being offensive.
-Never respond with END until there is at least one <PERSONA> tag in the dicussion.
+**DO NOT** respond with END until there is at least two <PERSONA> tags in the discussion.
 [The Personas]
 {'\n'.join(Personas)}
 """

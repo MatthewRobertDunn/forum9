@@ -4,26 +4,18 @@ from boto3.dynamodb.conditions import Key
 from datetime import datetime, timezone
 from config import TABLE_NAME
 from request_handler import handle_request
-def handle(year = None, **kwargs):
+def handle(id, **kwargs):
     # Initialize a session using Amazon DynamoDB
     dynamodb = boto3.resource('dynamodb')
     table = dynamodb.Table(TABLE_NAME)
     # Query the table
-    try:
-        year = int(year)
-    except:
-        year = datetime.now(timezone.utc).year
-
     response = table.query(
-         IndexName="year-created_date-index",
-        KeyConditionExpression=Key('year').eq(year),
-        ProjectionExpression='id, question, created_date',
-        ScanIndexForward=False,  # False to order by descending,
+        KeyConditionExpression=Key('id').eq(id),
     )
 
     # Extract the items from the response
-    items = response.get('Items', [])
-    return items
+    items = response.get('Items', None)
+    return items[0] if items else None
     
 
 #Entry point

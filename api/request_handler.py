@@ -16,7 +16,8 @@ def handle_request(service_function, request_method):
         if 'QUERY_STRING' in os.environ:
             query_string = os.environ.get("QUERY_STRING", "")
             # Parse the query string into a dictionary
-            request = parse_qs(query_string)
+            parsed_params = parse_qs(query_string)
+            request = {key: value[0] for key, value in parsed_params.items()}
         
         if 'CONTENT_LENGTH' in os.environ and os.environ['CONTENT_LENGTH'].isnumeric() and int(os.environ['CONTENT_LENGTH']) > 0:
             raw_post_data = sys.stdin.read(int(os.environ['CONTENT_LENGTH']))

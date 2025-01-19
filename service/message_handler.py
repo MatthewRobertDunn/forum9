@@ -13,4 +13,4 @@ def handle_request(question: str, id: str):
             "question": question,
             "post": post
            }
-    insert_post(post)
+    #insert_post(post)

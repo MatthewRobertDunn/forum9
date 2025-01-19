@@ -1,4 +1,4 @@
 import json
-from posts import handle
+from api.questions import handle
 
 print(json.dumps(handle()))

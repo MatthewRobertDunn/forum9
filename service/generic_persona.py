@@ -35,3 +35,5 @@ class GenericPersona(Somad):
         ]
         models = ["Qwen/Qwen2.5-72B-Instruct", "01-ai/Yi-1.5-34B-Chat"]
         self.model = random.choice(models)
+        self.temperature = random.random()
+        self.top_p = random.random()

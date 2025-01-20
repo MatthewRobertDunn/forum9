@@ -13,7 +13,7 @@ If the discussion is long enough and has come to a natural stopping point, respo
 The discussion forum is 18+ and satirical. Don't worry about being offensive.
 **DO NOT** respond with END until there is at least two <PERSONA> tags in the discussion.
 [The Personas]
-{'\n'.join(Personas)}
+{chr(10).join(Personas)}
 """
 class Agent(Somad):  
     def __init__(self) -> None:

@@ -33,5 +33,5 @@ class GenericPersona(Somad):
                 "content": task
             }
         ]
-        models = ["Qwen/Qwen2.5-72B-Instruct", "NousResearch/Nous-Hermes-2-Mixtral-8x7B-DPO"]
+        models = ["Qwen/Qwen2.5-72B-Instruct", "01-ai/Yi-1.5-34B-Chat", "HuggingFaceH4/starchat2-15b-v0.1"]
         self.model = random.choice(models)

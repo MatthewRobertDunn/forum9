@@ -9,7 +9,8 @@ def generate_post(question: str, id: str) -> Dict[str, any]:
     result = []
     ai_input = [f"<user>\n{question}"]
     print(ai_input[0])
-    for int in range(20):
+    max_posts = random.randint(1, 20)
+    for i in range(max_posts):
         agent = Agent()
         print(f"Agent model is {agent.model}")
         agent.add_message("\n".join(ai_input))
@@ -24,7 +25,7 @@ def generate_post(question: str, id: str) -> Dict[str, any]:
             print("END")
             break
         persona = GenericPersona(chosen_persona)
-        print(f"Responding Persona: {chosen_persona} with model{persona.model}")
+        print(f"Responding Persona: {chosen_persona} with model {persona.model}")
         persona.add_message("\n".join(ai_input))
         response = persona.respond().strip()
         response = re.sub(r'^<[^>]+>', '', response, count=1).strip()

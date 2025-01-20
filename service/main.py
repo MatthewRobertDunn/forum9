@@ -17,7 +17,6 @@ def dequeue_messages():
     messages = response.get('Messages', [])
 
     if not messages:
-        print("No messages to process.")
         return
 
     for message in messages:

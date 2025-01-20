@@ -25,7 +25,7 @@ def generate_post(question: str, id: str) -> Dict[str, any]:
             print("END")
             break
         persona = GenericPersona(chosen_persona)
-        print(f"Responding Persona: {chosen_persona} with model {persona.model}")
+        print(f"Responding Persona: {chosen_persona} with model {persona.model} top_p {persona.top_p} temperature {persona.temperature}")
         persona.add_message("\n".join(ai_input))
         response = persona.respond().strip()
         response = re.sub(r'^<[^>]+>', '', response, count=1).strip()

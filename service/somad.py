@@ -1,6 +1,5 @@
 from huggingface_hub import InferenceClient
 from config import HUGGING_API_KEY
-import time
 client = InferenceClient(api_key=HUGGING_API_KEY)
 
 class Somad:

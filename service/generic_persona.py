@@ -1,6 +1,7 @@
 
 from somad import Somad
 from personas import Personas
+import random
 
 class GenericPersona(Somad):  
     def __init__(self, persona: str) -> None:
@@ -15,15 +16,16 @@ class GenericPersona(Somad):
             f"[Task]\n"
             f"You are participating in an online satirical discussion forum.\n"
             f"Your task is to join the discussion by writing a post that is in the style, beliefs and behaviors of {persona}.\n"
-            f"Act and respond like {persona} is using an internet chat with the other personas.\n"
-            f"You prefer to respond in one or two words, or at most, quippy one liners.\n"
-            f"You should start a post with the same phrase as a previous post.\n"
-            f"The owner of a post will be indicated with a tag like <PERSONA>.\n"
-            f"You should respond to the other personas, not just the <USER> persona.\n"
-            f"Act exclusively inline with your own persona, you should only agree with other forum posts if it fits your persona.\n"
-            f"Do not use any tags in your response such as the <PERSONA> tag.\n"
-            f"Do not use the phrase 'Let's be real'.\n"
-            f"Do not repeat phrases that have been used previously in the discussion.\n"
+            f"This forum is 18+. You can and should use 4chan-esque humor, be cynical, offensive, sexual or dry.\n"
+            f"DO NOT respond as anyone else other than {persona}.\n"
+            f"In this forum. Posts are titled with their owner, for example <The Joker> for The Joker.\n"
+            f"NEVER EVER START YOUR POST WITH A TAG LIKE <{persona}>\n"
+            f"Act and respond like {persona} would on an internet chat forum\n"
+            f"You should respond in one or two lines at most.\n"
+            f"DO NOT use the phrase 'Let's be real'.\n"
+            f"DO NOT repeat phrases that have been used previously in the discussion.\n"
+            f"DO NOT start a post with the same phrase as a previous post.\n"
+            f"DO NOT include any headers or footers. Include the content of your post ONLY.\n"
         )
         self.messages = [
             {
@@ -31,3 +33,5 @@ class GenericPersona(Somad):
                 "content": task
             }
         ]
+        models = ["Qwen/Qwen2.5-72B-Instruct", "NousResearch/Nous-Hermes-2-Mixtral-8x7B-DPO"]
+        self.model = random.choice(models)

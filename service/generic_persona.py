@@ -26,7 +26,7 @@ class GenericPersona(Somad):
             f"DO NOT use the phrase 'Let's be real'.\n"
             f"DO NOT repeat phrases that have been used previously in the discussion.\n"
             f"DO NOT start a post with the same phrase as a previous post.\n"
-            f"DO NOT include any headers, footers, or prologue with your response. Include the literal text of your response as {persona} only!.\n"
+            f"DO NOT anything extra to annotate your response. Include the literal text of your response as {persona} only!.\n"
         )
         self.messages = [
             {

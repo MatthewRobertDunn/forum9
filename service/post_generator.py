@@ -46,15 +46,15 @@ def parse_response(response: str) -> str:
     :param response: The response from a persona
     :return: The cleaned and parsed response
     """
-    personas_and_user = Personas + ["<user>"]
+    personas_and_user = Personas + ["user"]
     result = []
     headerless_response = re.sub(r'^<[^>]+>', '', response, count=1).strip()
     for line in headerless_response.split("\n"):
-        line = line.strip()
-        if line.startswith("<") and line.endswith(">"):
-            persona = line[1:-1]
+        stripped_line = line.strip()
+        if stripped_line.startswith("<") and line.endswith(">"):
+            persona = stripped_line[1:-1]
             if persona in personas_and_user:
                 print("AI returned more than one response, skipping rest of response")
                 break
         result.append(line)
-    return "\n".join(result)
+    return "\n".join(result).strip()

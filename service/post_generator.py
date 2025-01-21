@@ -26,9 +26,8 @@ def generate_post(question: str, id: str) -> Dict[str, any]:
             break
         persona = GenericPersona(chosen_persona)
         print(f"Responding Persona: {chosen_persona} with model {persona.model} top_p {persona.top_p} temperature {persona.temperature}")
-        persona.add_message("\n".join(ai_input))
-        response = persona.respond().strip()
-        response = re.sub(r'^<[^>]+>', '', response, count=1).strip()
+        persona.add_message("\n".join(ai_input + [f"<{chosen_persona}>\n"]))
+        response = parse_response(persona.respond())
         print(response)
         ai_input.append(f"<{chosen_persona}>\n{response}")
         result.append({
@@ -36,3 +35,26 @@ def generate_post(question: str, id: str) -> Dict[str, any]:
             "content": response
         })
     return result
+
+
+
+def parse_response(response: str) -> str:
+    """
+    Parse the response from a persona by extracting only the first valid response.
+    Ignores additional persona responses beyond the first one.
+
+    :param response: The response from a persona
+    :return: The cleaned and parsed response
+    """
+    personas_and_user = Personas + ["<user>"]
+    result = []
+    headerless_response = re.sub(r'^<[^>]+>', '', response, count=1).strip()
+    for line in headerless_response.split("\n"):
+        line = line.strip()
+        if line.startswith("<") and line.endswith(">"):
+            persona = line[1:-1]
+            if persona in personas_and_user:
+                print("AI returned more than one response, skipping rest of response")
+                break
+        result.append(line)
+    return "\n".join(result)

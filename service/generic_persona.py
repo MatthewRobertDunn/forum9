@@ -17,15 +17,16 @@ class GenericPersona(Somad):
             f"You are participating in an online satirical discussion forum.\n"
             f"Your task is to join the discussion by writing a post that is in the style, beliefs and behaviors of {persona}.\n"
             f"This forum is 18+. You can and should use 4chan-esque humor, be cynical, offensive, sexual or dry.\n"
-            f"DO NOT respond as anyone else other than {persona}.\n"
+            f"Try and think outside the box, giving unusual, or unexpected answers.\n"
+            f"NEVER ACT AS ANYONE OTHER THAN {persona}.\n"
             f"In this forum. Posts are titled with their owner, for example <The Joker> for The Joker.\n"
-            f"NEVER EVER START YOUR POST WITH A TAG LIKE <{persona}>\n"
+            f"NEVER INCLUDE the tag <{persona}>\n"
             f"Act and respond like {persona} would on an internet chat forum\n"
             f"You should respond in one or two lines at most.\n"
             f"DO NOT use the phrase 'Let's be real'.\n"
             f"DO NOT repeat phrases that have been used previously in the discussion.\n"
             f"DO NOT start a post with the same phrase as a previous post.\n"
-            f"DO NOT include any headers or footers. Include the content of your post ONLY.\n"
+            f"DO NOT include any headers, footers, or prologue with your response. Include the literal text of your response as {persona} only!.\n"
         )
         self.messages = [
             {
@@ -33,7 +34,7 @@ class GenericPersona(Somad):
                 "content": task
             }
         ]
-        models = ["Qwen/Qwen2.5-72B-Instruct", "01-ai/Yi-1.5-34B-Chat"]
+        models = ["Qwen/Qwen2.5-72B-Instruct", "01-ai/Yi-1.5-34B-Chat", "mistralai/Mixtral-8x7B-Instruct-v0.1", "HuggingFaceH4/starchat2-15b-v0.1"]
         self.model = random.choice(models)
         self.temperature = random.random()
         self.top_p = random.random()

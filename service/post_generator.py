@@ -1,9 +1,11 @@
 from typing import Dict
 from agent import Agent
 from generic_persona import GenericPersona
+from markdown_persona import MarkdownPersona
 from personas import Personas
 import random
 import re
+
 def generate_post(question: str, id: str) -> Dict[str, any]:
     personas_and_end = Personas + ["END"]
     result = []
@@ -57,4 +59,4 @@ def parse_response(response: str) -> str:
                 print("AI returned more than one response, skipping rest of response")
                 break
         result.append(line)
-    return "\n".join(result).strip()
+    return "\\\n".join(result).strip()

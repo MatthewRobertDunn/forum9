@@ -35,6 +35,7 @@ def generate_post(question: str, id: str) -> Dict[str, any]:
         print(f"Responding Persona: {chosen_persona} with model {persona.model} top_p {persona.top_p} temperature {persona.temperature}")
         persona.add_message("\n".join(ai_input + [f"<{chosen_persona}>\n"]))
         response = parse_response(persona.respond())
+        ai_input.append(f"<{chosen_persona}>\n{response.content}")
         cleaned_response = None
         if response.ai_clean:
             markdown_persona = MarkdownPersona()
@@ -44,7 +45,6 @@ def generate_post(question: str, id: str) -> Dict[str, any]:
             cleaned_response = response.content
         
         print(cleaned_response)
-        ai_input.append(f"<{chosen_persona}>\n{response.content}")
         result.append({
             "persona": chosen_persona,
             "content": cleaned_response

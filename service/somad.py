@@ -6,7 +6,7 @@ class Somad:
     def __init__(self) -> None:
         self.model="Qwen/Qwen2.5-72B-Instruct"
         self.temperature=0.5
-        self.max_tokens=256
+        self.max_tokens=512
         self.top_p=0.7
         self.messages = [
             {

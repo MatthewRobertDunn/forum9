@@ -6,6 +6,11 @@ from personas import Personas
 import random
 import re
 
+class ParseResponseResult:
+    def __init__(self, response: str, ai_clean: bool):
+        self.response = response
+        self.ai_clean = ai_clean
+
 def generate_post(question: str, id: str) -> Dict[str, any]:
     personas_and_end = Personas + ["END"]
     result = []
@@ -30,17 +35,25 @@ def generate_post(question: str, id: str) -> Dict[str, any]:
         print(f"Responding Persona: {chosen_persona} with model {persona.model} top_p {persona.top_p} temperature {persona.temperature}")
         persona.add_message("\n".join(ai_input + [f"<{chosen_persona}>\n"]))
         response = parse_response(persona.respond())
-        print(response)
+        cleaned_response = None
+        if response.ai_clean:
+            markdown_persona = MarkdownPersona()
+            markdown_persona.add_message(response)
+            cleaned_response = markdown_persona.respond()
+        else:
+            cleaned_response = response.response
+        
+        print(cleaned_response)
         ai_input.append(f"<{chosen_persona}>\n{response}")
         result.append({
             "persona": chosen_persona,
-            "content": response
+            "content": cleaned_response
         })
     return result
 
 
 
-def parse_response(response: str) -> str:
+def parse_response(response: str) -> ParseResponseResult:
     """
     Parse the response from a persona by extracting only the first valid response.
     Ignores additional persona responses beyond the first one.
@@ -59,4 +72,4 @@ def parse_response(response: str) -> str:
                 print("AI returned more than one response, skipping rest of response")
                 break
         result.append(line)
-    return "\\\n".join(result).strip()
+    return ParseResponseResult("\n".join(result).strip(), len(result) > 1)

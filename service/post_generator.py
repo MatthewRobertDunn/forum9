@@ -44,7 +44,7 @@ def generate_post(question: str, id: str) -> Dict[str, any]:
             cleaned_response = response.content
         
         print(cleaned_response)
-        ai_input.append(f"<{chosen_persona}>\n{response}")
+        ai_input.append(f"<{chosen_persona}>\n{response.content}")
         result.append({
             "persona": chosen_persona,
             "content": cleaned_response

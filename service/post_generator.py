@@ -7,8 +7,8 @@ import random
 import re
 
 class ParseResponseResult:
-    def __init__(self, response: str, ai_clean: bool):
-        self.response = response
+    def __init__(self, content: str, ai_clean: bool):
+        self.content = content
         self.ai_clean = ai_clean
 
 def generate_post(question: str, id: str) -> Dict[str, any]:
@@ -38,10 +38,10 @@ def generate_post(question: str, id: str) -> Dict[str, any]:
         cleaned_response = None
         if response.ai_clean:
             markdown_persona = MarkdownPersona()
-            markdown_persona.add_message(response)
+            markdown_persona.add_message(response.content)
             cleaned_response = markdown_persona.respond()
         else:
-            cleaned_response = response.response
+            cleaned_response = response.content
         
         print(cleaned_response)
         ai_input.append(f"<{chosen_persona}>\n{response}")

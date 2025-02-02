@@ -3,8 +3,15 @@ from agent import Agent
 from generic_persona import GenericPersona
 from markdown_persona import MarkdownPersona
 from personas import Personas
+from somad import Somad
+import somads.the_cube as TheCube
 import random
 import re
+
+persona_classes = {
+    "The Cube": TheCube.TheCube,
+}
+        
 
 class ParseResponseResult:
     def __init__(self, content: str, ai_clean: bool):
@@ -16,6 +23,7 @@ def generate_post(question: str, id: str) -> Dict[str, any]:
     result = []
     ai_input = [f"<user>\n{question}"]
     print(ai_input[0])
+    respond_with(result, ai_input, "The Cube")
     max_posts = random.randint(1, 20)
     for i in range(max_posts):
         agent = Agent()
@@ -31,27 +39,37 @@ def generate_post(question: str, id: str) -> Dict[str, any]:
         if(chosen_persona == "END"): 
             print("END")
             break
-        persona = GenericPersona(chosen_persona)
-        print(f"Responding Persona: {chosen_persona} with model {persona.model} top_p {persona.top_p} temperature {persona.temperature}")
-        persona.add_message("\n".join(ai_input + [f"<{chosen_persona}>\n"]))
-        response = parse_response(persona.respond())
-        ai_input.append(f"<{chosen_persona}>\n{response.content}")
-        cleaned_response = None
-        if response.ai_clean:
-            markdown_persona = MarkdownPersona()
-            markdown_persona.add_message(response.content)
-            cleaned_response = markdown_persona.respond()
-        else:
-            cleaned_response = response.content
         
-        print(cleaned_response)
-        result.append({
-            "persona": chosen_persona,
-            "content": cleaned_response
-        })
+        respond_with(result, ai_input, chosen_persona)
     return result
 
 
+def respond_with(result: list, ai_input: list, chosen_persona: str):
+    persona = get_persona(chosen_persona)
+    print(f"Responding Persona: {chosen_persona} with model {persona.model} top_p {persona.top_p} temperature {persona.temperature}")
+    persona.add_message("\n".join(ai_input + [f"<{chosen_persona}>\n"]))
+    response = parse_response(persona.respond())
+    ai_input.append(f"<{chosen_persona}>\n{response.content}")
+    cleaned_response = None
+    if response.ai_clean:
+        markdown_persona = MarkdownPersona()
+        markdown_persona.add_message(response.content)
+        cleaned_response = markdown_persona.respond()
+    else:
+        cleaned_response = response.content
+    
+    print(cleaned_response)
+    result.append({
+        "persona": chosen_persona,
+        "content": cleaned_response
+    })
+
+
+def get_persona(persona: str) -> Somad:
+    if persona in persona_classes:
+        return persona_classes[persona](persona)
+    else:
+        return GenericPersona(persona)
 
 def parse_response(response: str) -> ParseResponseResult:
     """

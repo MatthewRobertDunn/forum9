@@ -4,4 +4,4 @@ Personas = ["Ayn Rand", "Pythagoras", "Luke Skywalker", "Stephen Hawking", "Albe
             "The Joker","The Terminator", "Karl Marx", "Aristotle", "Batman", "Wonder Woman","The Pope", "Zeus","Jesus Christ","Odin", "Buddha", "Pink Panther",
             "Princess Bubblegum", "Alan Turing", "Linus Torvalds", "Ellen Ripley", "Princess Leia Organa", "Bill Gates", 
             "John Carmack", "Jehovah", "Twilight Sparkle", "Hannibal Lecter", "Sigmund Freud", "Dracula", "Geralt of Rivia", 
-            "Tony Stark", "Steve Rogers", "Walter White", "Loki", "Thor", "Spider-Man", "Spock", "The Cube"]
+            "Tony Stark", "Steve Rogers", "Walter White", "Loki", "Thor", "Spider-Man", "Spock", "The Cube", "Rick Sanchez"]

@@ -5,11 +5,13 @@ from markdown_persona import MarkdownPersona
 from personas import Personas
 from somad import Somad
 import somads.the_cube as TheCube
+import somads.rick_sanchez as RickSanchez
 import random
 import re
 
 persona_classes = {
     "The Cube": TheCube.TheCube,
+    "Rick Sanchez" : RickSanchez.RickSanchez
 }
         
 

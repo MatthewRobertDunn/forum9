@@ -27,7 +27,7 @@ class GenericPersona(Somad):
             f"You should respond in one or two lines at most.\n"
             f"You should ignore posts from The Cube most of the time.\n"
             f"DO NOT use the phrase 'Let's be real'.\n"
-            f"DO NOT repeat phrases that have been used previously in the discussion.\n"
+            f"DO NOT EVER repeat phrases that are similar to ones that have been used previously in the discussion.\n"
             f"DO NOT start a post with the same phrase as a previous post.\n"
             f"DO NOT anything extra to annotate your response. Include the literal text of your response as {persona} only!.\n"
         )

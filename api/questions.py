@@ -1,10 +1,10 @@
 #!/usr/bin/env python
-import boto3
 from boto3.dynamodb.conditions import Key
 from datetime import datetime, timezone
-from config import TABLE_NAME
 from request_handler import handle_request
 from datetime import datetime
+from dynamodb import table
+
 def questions(date: str = None, reverse = None, **kwargs):  
     # Convert the date string to a datetime object
     # and set a default value
@@ -19,10 +19,6 @@ def questions(date: str = None, reverse = None, **kwargs):
         parsed_date = datetime.now(timezone.utc)
 
     iso_date = parsed_date.isoformat()
-
-    # Initialize a session using Amazon DynamoDB
-    dynamodb = boto3.resource('dynamodb')
-    table = dynamodb.Table(TABLE_NAME)
 
     #default sort order is to get posts earlier than given date, unless reverse is requested
     sort_by = Key('created_date').gt(iso_date) if reverse else Key('created_date').lt(iso_date)

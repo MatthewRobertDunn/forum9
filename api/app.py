@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from questions import questions as api_questions
 from question import question as api_question
 from submit import submit as api_submit
@@ -14,4 +14,4 @@ def question():
 
 @app.route("/submit.py", methods=["POST"])
 def submit():
-    return api_submit(request.data)
+    return  jsonify(api_submit(request.get_json()))

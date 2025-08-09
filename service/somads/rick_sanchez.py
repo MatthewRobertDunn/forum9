@@ -33,7 +33,3 @@ class RickSanchez(Somad):
                 "content": task
             }
         ]
-        models = ["Qwen/Qwen2.5-72B-Instruct"]
-        self.model = random.choice(models)
-        self.temperature = random.random()
-        self.top_p = random.random()

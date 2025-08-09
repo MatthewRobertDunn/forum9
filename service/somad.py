@@ -5,7 +5,7 @@ client = InferenceClient(api_key=HUGGING_API_KEY)
 
 class Somad:
     def __init__(self) -> None:
-        models = ["Qwen/Qwen2.5-72B-Instruct", "google/gemma-3-27b-it", "deepseek-ai/DeepSeek-V3"]
+        models = ["Qwen/Qwen2.5-72B-Instruct", "deepseek-ai/DeepSeek-V3"]
         self.model = random.choice(models)
         self.temperature=0.5
         self.max_tokens=512

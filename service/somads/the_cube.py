@@ -32,3 +32,4 @@ class TheCube(Somad):
         ]
         self.temperature = random.random()
         self.top_p = random.random()
+ 

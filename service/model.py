@@ -4,4 +4,4 @@ class Model:
         self.score = 0
 
     def add_score(self, delta: int):
-        self.score = max(-5, min(5, self.score + delta))
+        self.score = max(-10, min(10, self.score + delta))

@@ -1,6 +1,6 @@
 import random
 import re
-from typing import List, Optional
+from typing import List, Optional, Tuple
 from openai import OpenAI
 from config import HUGGING_API_KEY
 from model_pool import ModelPool
@@ -10,7 +10,17 @@ client = OpenAI(api_key=HUGGING_API_KEY,
 
 
 class Somad:
-    model_pool = ModelPool()
+    _model_pools = {}
+
+    def __init_subclass__(cls, **kwargs):
+        super().__init_subclass__(**kwargs)
+        cls._model_pools[cls] = ModelPool()
+        print(f"Created ModelPool for subclass {cls.__name__}")
+
+    @property
+    def model_pool(self):
+        # Return the pool specific to this instance’s class
+        return self._model_pools[self.__class__]
 
     @property
     def models(self) -> List[str]:
@@ -22,11 +32,14 @@ class Somad:
             "qwen/qwen3-235b-a22b:free",
             "qwen/qwen-2.5-72b-instruct:free",
             "deepseek/deepseek-r1-0528:free",
+            "meta-llama/llama-3.1-405b-instruct:free",
+            "deepseek/deepseek-chat-v3-0324:free",
+            "qwen/qwen3-coder:free",
         ]
 
     def __init__(self) -> None:
         self.allowed_models = [
-            Somad.model_pool.get_model(name) for name in self.models]
+            self.model_pool.get_model(name) for name in self.models]
         self.temperature = 0.5
         self.max_tokens = 4096
         self.top_p = 0.7
@@ -55,11 +68,15 @@ class Somad:
         index = int(r * len(models))
         return models[index]
 
-    def respond(self):
+    def respond(self) -> Optional[str]:
+        text, _ = self.respond_with_model()
+        return text
+
+    def respond_with_model(self) -> Tuple[Optional[str], Optional[Model]]:
         model = self.select_model()
         if not model:
             print("No allowed models available")
-            return None
+            return None, None
         print(
             f"Selected model: {model.name} score {model.score} temperature: {self.temperature} top_p: {self.top_p} max_tokens: {self.max_tokens}")
 
@@ -90,4 +107,4 @@ class Somad:
             model.add_score(1)
         else:
             model.add_score(-1)
-        return text
+        return text, model

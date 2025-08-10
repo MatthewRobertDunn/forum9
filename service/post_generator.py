@@ -31,10 +31,12 @@ def generate_post(question: str, id: str) -> Dict[str, any]:
     for i in range(max_posts):
         agent = Agent()
         agent.add_message("\n".join(ai_input))
-        chosen_persona = agent.respond().strip()
+        agent_response, agent_model = agent.respond_with_model()
+        chosen_persona = agent_response.strip()
         chosen_persona = chosen_persona.replace('<', '').replace('>', '')
         if (chosen_persona not in personas_and_end):
             print("Invalid Persona. Selecting at random")
+            agent_model.add_score(-1)
             chosen_persona = random.choice(Personas)
         else:
             print("Chosen persona is valid")

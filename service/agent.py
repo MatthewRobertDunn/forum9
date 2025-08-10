@@ -22,5 +22,3 @@ class Agent(Somad):
                 "role": "system",
                 "content": task
         }]
-        models = ["google/gemma-3-27b-it:free", "openai/gpt-oss-20b:free", "qwen/qwen-2.5-72b-instruct:free" ]
-        self.model = random.choice(models)

@@ -19,7 +19,7 @@ Rules:
    - Use **bold**, *italic*, and inline code `like this` where appropriate.
    - Preserve blank lines between paragraphs.
    - Preserve hard line breaks in the original plain text.
-   - When you need a hard line break in the output, end the line with a two spaces  
+   - When you need a hard line break in the output, end the line with two spaces not <br>
 * Do not add commentary, explanations, or instructions -- output only the fully formatted Markdown.
 
 Output:

@@ -4,7 +4,7 @@ from typing import List, Optional
 from openai import OpenAI
 from config import HUGGING_API_KEY
 from model_pool import ModelPool
-from service.model import Model
+from model import Model
 client = OpenAI(api_key=HUGGING_API_KEY,
                 base_url="https://openrouter.ai/api/v1")
 
@@ -61,7 +61,7 @@ class Somad:
             print("No allowed models available")
             return None
         print(
-            f"Selected model: {model.name} temperature: {self.temperature} top_p: {self.top_p} max_tokens: {self.max_tokens}")
+            f"Selected model: {model.name} score {model.score} temperature: {self.temperature} top_p: {self.top_p} max_tokens: {self.max_tokens}")
 
         response_message = None
         try:
@@ -70,13 +70,13 @@ class Somad:
                 messages=self.messages,
                 temperature=self.temperature,
                 max_tokens=self.max_tokens,
-                top_p=self.top_p
+                top_p=self.top_p,
+                timeout=120
             )
+            response_message = response.choices[0].message
         except Exception as e:
             model.add_score(-1)
             raise
-
-        response_message = response.choices[0].message
         text = response_message.content
         print("----raw response----")
         print(text)

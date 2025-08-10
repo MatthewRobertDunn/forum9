@@ -36,6 +36,6 @@ Output:
                 "content": task
             }
         ]
-        self.model = "qwen/qwen3-30b-a3b:free"
+        self.model = "qwen/qwen-2.5-72b-instruct:free"
         self.temperature = 0.5
         self.top_p = 0.7

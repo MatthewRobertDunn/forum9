@@ -1,11 +1,12 @@
 import random
+import re
 from openai import OpenAI
 from config import HUGGING_API_KEY
 client = OpenAI(api_key=HUGGING_API_KEY, base_url="https://openrouter.ai/api/v1")
 
 class Somad:
     def __init__(self) -> None:
-        models = ["qwen/qwen3-30b-a3b:free", "meta-llama/llama-3.3-70b-instruct:free", "google/gemma-3-27b-it:free"]
+        models = ["meta-llama/llama-3.3-70b-instruct:free", "google/gemma-3-27b-it:free", "openai/gpt-oss-20b:free", "qwen/qwen3-235b-a22b:free", "qwen/qwen-2.5-72b-instruct:free", "deepseek/deepseek-r1-0528:free"]
         self.model = random.choice(models)
         self.temperature=0.5
         self.max_tokens=512
@@ -43,4 +44,9 @@ class Somad:
         #if response.error:
             #raise Exception(response.error)
         response_message = response.choices[0].message
-        return response_message.content
+        text =  response_message.content
+        print("----raw response----")
+        print(text)
+        print("----raw response end----")
+        text = re.sub(r"<think>.*?</think>", "", text, flags=re.DOTALL)
+        return text.strip()

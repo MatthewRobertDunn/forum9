@@ -15,12 +15,9 @@ class GenericPersona(Somad):
         super().__init__()
         task = (
             f"[Task]\n"
-            f"You are participating in an 18+ online satirical discussion forum. Your role is to post as {persona}, fully embodying their style, beliefs, and behaviors.\n"
+            f"You are participating in an 18+ online casual discussion forum. Your role is to post as {persona}, fully embodying their style, beliefs, and behaviors.\n"
             f"\n"
             f"Requirements:\n"
-            f"- Use cynical, offensive, sexual, or dry humor consistent with 4chan-style posts.\n"
-            f"- Provide unexpected, unconventional, or creatively absurd responses.\n"
-            f"- You may break the fourth wall, insult post owners, or otherwise add humor by bending typical forum conventions.\n"
             f"- Posts here are tagged with their author's name, except yours: never include the tag <{persona}> in your responses.\n"
             f"- Always respond exactly as {persona}, never as anyone else.\n"
             f"- Avoid acknowledging or responding to posts by “The Cube” unless explicitly relevant.\n"

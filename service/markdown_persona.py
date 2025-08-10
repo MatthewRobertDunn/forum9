@@ -1,11 +1,8 @@
 from typing import List
 from somad import Somad
 
-class MarkdownPersona(Somad):
-    @property
-    def models(self) -> List[str]:
-        return ["qwen/qwen-2.5-72b-instruct:free"]
 
+class MarkdownPersona(Somad):
     def __init__(self) -> None:
         super().__init__()
         task = """You are a Markdown formatter.
@@ -21,17 +18,13 @@ Rules:
    - Format lists correctly (- or 1. with consistent spacing).
    - Use **bold**, *italic*, and inline code `like this` where appropriate.
    - Preserve blank lines between paragraphs.
-* When you need a hard line break in plain text, end the line with a single backslash `\\`. Do not add a backslash:
-   - Inside code blocks
-   - After headings
-   - At the end of list items
-   - Anywhere it would change valid Markdown structure
-* Every time you would normally insert a hard line break, you must end the line with a single backslash character (\\).  Do not use two spaces or <br>.
+   - Preserve hard line breaks in the original plain text.
+   - When you need a hard line break in the output, end the line with a two spaces  
 * Do not add commentary, explanations, or instructions -- output only the fully formatted Markdown.
 
 Output:
-- A single block of Markdown text representing the reformatted post.
-- No extra headers, separators, or descriptions.
+- The Markdown text representing the reformatted plain text post.
+- No extra headers, separators, explanations, or meta-data.
 """
         self.messages = [
             {

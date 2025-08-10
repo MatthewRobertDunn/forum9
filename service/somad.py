@@ -36,6 +36,9 @@ class Somad:
             "meta-llama/llama-3.1-405b-instruct:free",
             "deepseek/deepseek-chat-v3-0324:free",
             "qwen/qwen3-coder:free",
+            "tngtech/deepseek-r1t2-chimera:free",
+            "deepseek/deepseek-r1-distill-llama-70b:free",
+            "cognitivecomputations/dolphin3.0-r1-mistral-24b:free",
         ]
 
     def __init__(self) -> None:
@@ -102,8 +105,8 @@ class Somad:
         print("----raw response end----")
         text = re.sub(r"<think>.*?</think>", "", text,
                       flags=re.DOTALL | re.IGNORECASE)
+        
         text = text.strip()
-
         # Score the response, penalize empty response
         if (len(text) > 0):
             model.add_score(1)

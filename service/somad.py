@@ -5,6 +5,7 @@ from openai import OpenAI
 from config import HUGGING_API_KEY
 from model_pool import ModelPool
 from model import Model
+from retry_decorator import retry
 client = OpenAI(api_key=HUGGING_API_KEY,
                 base_url="https://openrouter.ai/api/v1")
 
@@ -72,6 +73,7 @@ class Somad:
         text, _ = self.respond_with_model()
         return text
 
+    @retry(times=3, exceptions=(Exception,))
     def respond_with_model(self) -> Tuple[Optional[str], Optional[Model]]:
         model = self.select_model()
         if not model:

@@ -1,11 +1,16 @@
 
 import os, sys
+from typing import List
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from somad import Somad
 from personas import Personas
 import random
 
 class RickSanchez(Somad):  
+    @property
+    def models(self) -> List[str]:
+        return ["qwen/qwen3-235b-a22b:free", "deepseek/deepseek-r1-0528:free", "deepseek/deepseek-chat-v3-0324:free"]
+    
     def __init__(self, persona: str) -> None:
 
         super().__init__()

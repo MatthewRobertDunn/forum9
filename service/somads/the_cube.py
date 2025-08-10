@@ -30,7 +30,5 @@ class TheCube(Somad):
                 "content": task
             }
         ]
-        models = ["deepseek-ai/DeepSeek-V3"]
-        self.model = random.choice(models)
         self.temperature = random.random()
         self.top_p = random.random()

@@ -1,11 +1,11 @@
 import random
-from huggingface_hub import InferenceClient
+from openai import OpenAI
 from config import HUGGING_API_KEY
-client = InferenceClient(api_key=HUGGING_API_KEY)
+client = OpenAI(api_key=HUGGING_API_KEY, base_url="https://openrouter.ai/api/v1")
 
 class Somad:
     def __init__(self) -> None:
-        models = ["Qwen/Qwen2.5-72B-Instruct", "deepseek-ai/DeepSeek-V3"]
+        models = ["qwen/qwen3-30b-a3b:free", "meta-llama/llama-3.3-70b-instruct:free", "google/gemma-3-27b-it:free"]
         self.model = random.choice(models)
         self.temperature=0.5
         self.max_tokens=512
@@ -40,5 +40,7 @@ class Somad:
 	            max_tokens=self.max_tokens,
 	            top_p=self.top_p
             )
+        #if response.error:
+            #raise Exception(response.error)
         response_message = response.choices[0].message
         return response_message.content

@@ -1,8 +1,11 @@
+from typing import List
 from somad import Somad
-from personas import Personas
-import random
 
-class MarkdownPersona(Somad):  
+class MarkdownPersona(Somad):
+    @property
+    def models(self) -> List[str]:
+        return ["qwen/qwen-2.5-72b-instruct:free"]
+
     def __init__(self) -> None:
         super().__init__()
         task = """You are a Markdown formatter.
@@ -36,6 +39,5 @@ Output:
                 "content": task
             }
         ]
-        self.model = "qwen/qwen-2.5-72b-instruct:free"
         self.temperature = 0.5
         self.top_p = 0.7

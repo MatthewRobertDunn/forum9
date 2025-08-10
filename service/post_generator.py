@@ -30,7 +30,6 @@ def generate_post(question: str, id: str) -> Dict[str, any]:
     max_posts = random.randint(1, 20)
     for i in range(max_posts):
         agent = Agent()
-        print(f"Agent model is {agent.model}")
         agent.add_message("\n".join(ai_input))
         chosen_persona = agent.respond().strip()
         chosen_persona = chosen_persona.replace('<', '').replace('>', '')
@@ -49,8 +48,7 @@ def generate_post(question: str, id: str) -> Dict[str, any]:
 
 def respond_with(result: list, ai_input: list, chosen_persona: str):
     persona = get_persona(chosen_persona)
-    print(
-        f"Responding Persona: {chosen_persona} with model {persona.model} top_p {persona.top_p} temperature {persona.temperature}")
+    print(f"Responding Persona: {chosen_persona}")
     persona.add_message("\n".join(ai_input + [f"<{chosen_persona}>\n"]))
     response = parse_response(persona.respond())
     ai_input.append(f"<{chosen_persona}>\n{response.content}")

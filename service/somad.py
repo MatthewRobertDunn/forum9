@@ -1,5 +1,6 @@
 import random
 import re
+import time
 from typing import List, Optional, Tuple
 from openai import OpenAI
 from config import HUGGING_API_KEY
@@ -90,6 +91,8 @@ class Somad:
             f"Selected model: {model.name} score {model.score} temperature: {self.temperature} top_p: {self.top_p} max_tokens: {model.max_tokens}")
 
         response_message = None
+        timeout = 240
+        start_time = time.time()  # Start timer
         try:
             response = client.chat.completions.create(
                 model=model.name,
@@ -103,6 +106,8 @@ class Somad:
         except Exception as e:
             model.add_score(-1)
             raise
+        
+        elapsed_time = time.time() - start_time  # Calculate elapsed time
         text = response_message.content
         print("----raw response----")
         print(text)
@@ -113,7 +118,7 @@ class Somad:
         text = text.strip()
         # Score the response, penalize empty response
         if (len(text) > 0):
-            model.add_score(1)
+            model.add_score(1 - (elapsed_time / timeout))
         else:
             model.add_score(-1)
         return text, model

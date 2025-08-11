@@ -4,5 +4,5 @@ class Model:
         self.score = 0
         self.max_tokens = max_tokens
 
-    def add_score(self, delta: int):
+    def add_score(self, delta: float):
         self.score = max(-10, min(10, self.score + delta))

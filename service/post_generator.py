@@ -110,6 +110,12 @@ def parse_response(response: str) -> ParseResponseResult:
         if(line.startswith("#")):
             use_ai = False
         
+        if(line.startswith("```")):
+            use_ai = False
+        
+        if(line.startswith("```")):
+            use_ai = False
+        
         result.append(line)
 
     if(len(result) <= 1):

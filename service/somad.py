@@ -27,26 +27,27 @@ class Somad:
     def models(self) -> List[str]:
         # Base list of models — subclasses can override this
         return [
-            "meta-llama/llama-3.3-70b-instruct:free",
-            "google/gemma-3-27b-it:free",
-            "openai/gpt-oss-20b:free",
-            "qwen/qwen-2.5-72b-instruct:free",
+            "qwen/qwen3-235b-a22b:free",
             "deepseek/deepseek-r1-0528:free",
             "meta-llama/llama-3.1-405b-instruct:free",
-            "deepseek/deepseek-chat-v3-0324:free",
+            "meta-llama/llama-3.3-70b-instruct:free",
             "qwen/qwen3-coder:free",
-            "tngtech/deepseek-r1t2-chimera:free",
+            "qwen/qwen-2.5-72b-instruct:free",
+            "deepseek/deepseek-chat-v3-0324:free",
             "deepseek/deepseek-r1-distill-llama-70b:free",
+            "google/gemma-3-27b-it:free",
+            "openai/gpt-oss-20b:free",
+            "tngtech/deepseek-r1t2-chimera:free",
             "cognitivecomputations/dolphin3.0-r1-mistral-24b:free",
-            "qwen/qwen3-235b-a22b:free"
         ]
 
     def __init__(self) -> None:
         self.allowed_models = [
             self.model_pool.get_model(name) for name in self.models]
-        
-        if("qwen/qwen3-235b-a22b:free" in self.models):
-            self.model_pool.get_model("qwen/qwen3-235b-a22b:free").max_tokens = 65536
+
+        if ("qwen/qwen3-235b-a22b:free" in self.models):
+            self.model_pool.get_model(
+                "qwen/qwen3-235b-a22b:free").max_tokens = 65536
 
         self.temperature = 0.5
         self.top_p = 0.7
@@ -108,7 +109,7 @@ class Somad:
         print("----raw response end----")
         text = re.sub(r"<think>.*?</think>", "", text,
                       flags=re.DOTALL | re.IGNORECASE)
-        
+
         text = text.strip()
         # Score the response, penalize empty response
         if (len(text) > 0):

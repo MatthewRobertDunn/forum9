@@ -3,6 +3,22 @@ from somad import Somad
 
 
 class MarkdownPersona(Somad):
+    @property
+    def models(self) -> List[str]:
+        # Base list of models — subclasses can override this
+        return [
+            "meta-llama/llama-3.3-70b-instruct:free",
+            "google/gemma-3-27b-it:free",
+            "openai/gpt-oss-20b:free",
+            "qwen/qwen-2.5-72b-instruct:free",
+            "deepseek/deepseek-r1-0528:free",
+            "meta-llama/llama-3.1-405b-instruct:free",
+            "deepseek/deepseek-chat-v3-0324:free",
+            "qwen/qwen3-coder:free",
+            "tngtech/deepseek-r1t2-chimera:free",
+            "deepseek/deepseek-r1-distill-llama-70b:free",
+            "cognitivecomputations/dolphin3.0-r1-mistral-24b:free",
+        ]
     def __init__(self) -> None:
         super().__init__()
         task = """You are a Markdown formatter.

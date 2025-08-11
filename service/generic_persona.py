@@ -16,6 +16,7 @@ class GenericPersona(Somad):
         task = (
             f"[Task]\n"
             f"You are participating in an 18+ online casual discussion forum. Your role is to post as {persona}, fully embodying their style, beliefs, and behaviors.\n"
+            f"You may format your post with CommonMark Markdown if relevant.\n"
             f"\n"
             f"Requirements:\n"
             f"- Posts here are tagged with their author's name, except yours: never include the tag <{persona}> in your responses.\n"

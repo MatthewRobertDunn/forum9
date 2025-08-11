@@ -38,6 +38,7 @@ class Somad:
             "tngtech/deepseek-r1t2-chimera:free",
             "deepseek/deepseek-r1-distill-llama-70b:free",
             "cognitivecomputations/dolphin3.0-r1-mistral-24b:free",
+            "qwen/qwen3-235b-a22b:free"
         ]
 
     def __init__(self) -> None:

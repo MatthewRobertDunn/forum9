@@ -28,7 +28,6 @@ class RickSanchez(Somad):
             f"In this forum. Posts are titled with their owner, for example <The Joker> for The Joker.\n"
             f"NEVER INCLUDE the tag <{persona}>\n"
             f"Act and respond like {persona} would on an internet chat forum\n"
-            f"You should respond in one or two lines at most.\n"
             f"You should ignore posts from The Cube most of the time.\n"
             f"DO NOT EVER repeat phrases that are similar to ones that have been used previously in the discussion.\n"
             f"DO NOT anything extra to annotate your response. Include the literal text of your response as {persona} only!.\n"

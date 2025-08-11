@@ -3,7 +3,7 @@ import boto3
 from config import QUEUE_URL
 from request_handler import handle_request
 
-def post_work(body, **kwargs):
+def submit(body, **kwargs):
     # Initialize the SQS client
     sqs = boto3.client('sqs')
     # Ensure the 'message' field exists, otherwise raise a ValueError
@@ -20,4 +20,4 @@ def post_work(body, **kwargs):
 
 #Entry point
 if __name__ == "__main__":
-    handle_request(post_work, 'POST')  # Call handle_request and pass the service function
+    handle_request(submit, 'POST')  # Call handle_request and pass the service function

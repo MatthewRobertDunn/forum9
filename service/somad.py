@@ -30,7 +30,6 @@ class Somad:
             "meta-llama/llama-3.3-70b-instruct:free",
             "google/gemma-3-27b-it:free",
             "openai/gpt-oss-20b:free",
-            "qwen/qwen3-235b-a22b:free",
             "qwen/qwen-2.5-72b-instruct:free",
             "deepseek/deepseek-r1-0528:free",
             "meta-llama/llama-3.1-405b-instruct:free",
@@ -44,8 +43,11 @@ class Somad:
     def __init__(self) -> None:
         self.allowed_models = [
             self.model_pool.get_model(name) for name in self.models]
+        
+        if("qwen/qwen3-235b-a22b:free" in self.models):
+            self.model_pool.get_model("qwen/qwen3-235b-a22b:free").max_tokens = 65536
+
         self.temperature = 0.5
-        self.max_tokens = 4096
         self.top_p = 0.7
         self.messages = [
             {
@@ -83,7 +85,7 @@ class Somad:
             print("No allowed models available")
             return None, None
         print(
-            f"Selected model: {model.name} score {model.score} temperature: {self.temperature} top_p: {self.top_p} max_tokens: {self.max_tokens}")
+            f"Selected model: {model.name} score {model.score} temperature: {self.temperature} top_p: {self.top_p} max_tokens: {model.max_tokens}")
 
         response_message = None
         try:
@@ -91,9 +93,9 @@ class Somad:
                 model=model.name,
                 messages=self.messages,
                 temperature=self.temperature,
-                max_tokens=self.max_tokens,
+                max_tokens=model.max_tokens,
                 top_p=self.top_p,
-                timeout=120
+                timeout=240
             )
             response_message = response.choices[0].message
         except Exception as e:

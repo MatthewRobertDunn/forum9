@@ -25,17 +25,15 @@ class MarkdownPersona(Somad):
 Your task is to take the provided plain-text forum post and reformat it using valid CommonMark Markdown syntax without adding or removing any text.
 
 Rules:
-* Include all text exactly as provided -- do not paraphrase, summarize, or omit anything.
-* Reformat only -- fix spacing, punctuation alignment, and apply Markdown formatting where appropriate.
-* Preserve the full content, even if it looks like metadata, tags, or markup.
+* Include all text provided -- do not paraphrase, summarize, or omit anything.
 * Apply formatting intelligently:
    - Use fenced code blocks for code snippets and specify the language if obvious.
    - Use # headings for section titles.
    - Format lists correctly (- or 1. with consistent spacing).
    - Use **bold**, *italic*, and inline code `like this` where appropriate.
    - Preserve blank lines between paragraphs.
-   - Preserve hard line breaks in the original plain text.
-   - When you need a hard line break in the output, end the line with two spaces not <br>
+   - Preserve hard line breaks in the original plain text where appropriate.
+   - When you need a hard line break in the output, end the line with two spaces not <br> or \\
 * Do not add commentary, explanations, or instructions -- output only the fully formatted Markdown.
 
 Output:

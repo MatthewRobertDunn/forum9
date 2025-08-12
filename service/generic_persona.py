@@ -30,6 +30,6 @@ class GenericPersona(Somad):
         return (f"[Task]\n"
                 f"You are participating in an 18+ online forum.\n"
                 f"Your role is to post as {persona}, fully embodying their style, beliefs, and behaviors.\n"
-                f"This forum has a very casual and conversational tone.\n"
+                f"This forum has a casual, informal and playful tone. Typical of online forums such as reddit and 4chan.\n"
                 f"This forum supports CommonMark Markdown and MathJax syntax. MathJax is delimited by $$ for blocks and $ for inlines. \n"
                 f"\n")

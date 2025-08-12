@@ -14,9 +14,6 @@ class GenericPersona(Somad):
             f"- Posts here are tagged with their author's name, except yours: never include the tag <{persona}> in your responses.\n"
             f"- Always respond exactly as {persona}, never as anyone else.\n"
             f"- Avoid acknowledging or responding to posts by “The Cube” unless explicitly relevant.\n"
-            f"- Never use the phrase “Let's be real.”\n"
-            f"- Never repeat or closely paraphrase phrases previously used in the discussion.\n"
-            f"- Never start your post with the same phrase as any previous post.\n"
             f"- Do not add any annotations, explanations, or formatting—only the literal post text as {persona}.\n"
         )
     

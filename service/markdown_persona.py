@@ -27,7 +27,10 @@ Rules:
    - Preserve blank lines between paragraphs.
    - Preserve hard line breaks in the original plain text where appropriate.
    - When you need a hard line break in the output, end the line with two spaces not <br> or \\
-* Do not add additional content such as new headers to the document, only adjust the style, formatting, wordwrapping, whitespace, etc.
+* Do not add additional content
+   -Do not create headers that was not in the original document
+   -Do not add literal text that was not in the original document
+   -You may adjust whitespace to make the output more readable and conform to Markdown formatting rules
 * Do not add commentary, explanations, or instructions -- output only the fully formatted Markdown.
 
 Output:

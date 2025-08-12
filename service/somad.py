@@ -51,7 +51,7 @@ class Somad:
 
         for model in self.allowed_models:
             if (model.name in StrongModels):
-                model.max_tokens = 65536
+                model.max_tokens = 32768
 
         self.persona = persona
 

@@ -40,6 +40,10 @@ class Somad:
     @property
     def task(self) -> str:
         return ""
+    
+    @property
+    def model_bias_exponent(self) -> float:
+        return 2.0
 
     def __init__(self, persona: str = None) -> None:
         self.allowed_models = [
@@ -71,8 +75,7 @@ class Somad:
                         key=lambda m: m.score, reverse=True)
         if not models:
             return None
-        exponent = 2  # tweak this to adjust bias strength
-        r = random.random() ** exponent
+        r = random.random() ** self.model_bias_exponent
         index = int(r * len(models))
         return models[index]
 

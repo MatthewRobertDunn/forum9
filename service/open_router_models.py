@@ -18,12 +18,12 @@ GeneralModels = [
 
 # The fastest models of the collection, good for dumb characters, formatting.
 FastModels = [
+    "qwen/qwen-2.5-72b-instruct:free",  # 100tps
     "meta-llama/llama-3.3-70b-instruct:free",  # 111.5tps
+    "mistralai/mistral-small-3.2-24b-instruct:free",
     "openai/gpt-oss-20b:free",  # 212.1 tps
     "qwen/qwen3-4b:free",  # 146.2tps
-    "qwen/qwen-2.5-72b-instruct:free",  # 100tps
     "meta-llama/llama-3.2-3b-instruct:free",  # 164.2
-    "mistralai/mistral-small-3.2-24b-instruct:free",
 ]
 
 # Represents the strongest reasoning models, usually slower, gets more token allocation

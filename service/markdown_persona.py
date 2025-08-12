@@ -5,6 +5,10 @@ from somad import Somad
 
 class MarkdownPersona(Somad):
     @property
+    def model_bias_exponent(self) -> float:
+        return 3.0
+
+    @property
     def models(self) -> List[str]:
         # Base list of models — subclasses can override this
         return FastModels

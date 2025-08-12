@@ -23,10 +23,14 @@ class Agent(Somad):
     def models(self) -> List[str]:
         return FastModels
 
+    @property
+    def model_bias_exponent(self) -> float:
+        return 3.0
+
     def __init__(self) -> None:
         super().__init__()
         self.messages = [
-        {
+            {
                 "role": "system",
                 "content": task
-        }]
+            }]

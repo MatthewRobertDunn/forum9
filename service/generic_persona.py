@@ -5,16 +5,10 @@ import random
 
 
 class GenericPersona(Somad):
-
-    def __init__(self, persona: str) -> None:
-        """
-        Initialize the GenericPersona object with a humorous forum post task.
-
-        Args:
-            persona (str): The persona for whom the forum post is to be written.
-        """
-        super().__init__()
-        task = (
+    @property
+    def task(self) -> str:
+        persona = self.persona
+        return (
             f"{self.forum_introduction_task(persona)}\n"
             f"Requirements:\n"
             f"- Posts here are tagged with their author's name, except yours: never include the tag <{persona}> in your responses.\n"
@@ -25,15 +19,15 @@ class GenericPersona(Somad):
             f"- Never start your post with the same phrase as any previous post.\n"
             f"- Do not add any annotations, explanations, or formatting—only the literal post text as {persona}.\n"
         )
-        self.temperature = random.random()
-        self.top_p = random.random()
-        self.messages = [
-            {
-                "role": "system",
-                "content": task
-            }
-        ]
+    
+    @property
+    def temperature(self) -> float:
+        return random.random()
 
+    @property
+    def top_p(self) -> float:
+        return random.random()
+    
     def forum_introduction_task(self, persona: str) -> str:
         return (f"[Task]\n"
                 f"You are participating in an 18+ online casual discussion forum. Your role is to post as {persona}, fully embodying their style, beliefs, and behaviors.\n"

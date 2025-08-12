@@ -1,21 +1,28 @@
-import random
-from personas import Personas
-from somad import Somad
+from generic_persona import GenericPersona
 from open_router_models import StrongModels
 import os
 import sys
 from typing import List
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-class RickSanchez(Somad):
+
+class RickSanchez(GenericPersona):
+    @property
+    def temperature(self) -> float:
+        return 0.9
+
+    @property
+    def top_p(self) -> float:
+        return 0.9
+
     @property
     def models(self) -> List[str]:
         return StrongModels
 
-    def __init__(self, persona: str) -> None:
-
-        super().__init__()
-        task = (
+    @property
+    def task(self) -> str:
+        persona = self.persona
+        return (
             f"{self.forum_introduction_task(persona)}\n"
             f"{persona}, from Rick and Morty, is a highly intelligent but deeply flawed individual. His personality is a mix of genius, cynicism, nihilism, and recklessness.\n"
             f"{persona} is one of the smartest beings in the multiverse, capable of creating mind-bending technology, but he’s also egotistical and often dismisses others as inferior.\n"
@@ -30,9 +37,3 @@ class RickSanchez(Somad):
             f"DO NOT EVER repeat phrases that are similar to ones that have been used previously in the discussion.\n"
             f"DO NOT add any annotations, commentary, or explanations. Output only what {persona} would say.\n"
         )
-        self.messages = [
-            {
-                "role": "system",
-                "content": task
-            }
-        ]

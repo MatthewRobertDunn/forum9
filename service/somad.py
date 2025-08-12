@@ -29,7 +29,19 @@ class Somad:
         # Base list of models — subclasses can override this
         return GeneralModels
 
-    def __init__(self) -> None:
+    @property
+    def temperature(self) -> float:
+        return 0.5
+
+    @property
+    def top_p(self) -> float:
+        return 0.7
+
+    @property
+    def task(self) -> str:
+        return ""
+
+    def __init__(self, persona: str = None) -> None:
         self.allowed_models = [
             self.model_pool.get_model(name) for name in self.models]
 
@@ -37,13 +49,13 @@ class Somad:
             if (model.name in StrongModels):
                 model.max_tokens = 65536
 
-        self.temperature = 0.5
-        self.top_p = 0.7
+        self.persona = persona
+
         self.messages = [
             {
                 "role": "system",
-                "content": """Intentionally empty, inherit from Somad to implement a presonality."""
-            },
+                "content": self.task
+            }
         ]
 
     def add_message(self, content: str):

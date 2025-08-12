@@ -1,5 +1,7 @@
 
 import random
+from typing import List
+from open_router_models import FastModels
 from somad import Somad
 from personas import Personas
 
@@ -14,7 +16,13 @@ You will be given an ongoing discussion forum. Your job is to respond **only** w
 [The Personas]
 {chr(10).join(Personas)}
 """
-class Agent(Somad):  
+
+
+class Agent(Somad):
+    @property
+    def models(self) -> List[str]:
+        return FastModels
+
     def __init__(self) -> None:
         super().__init__()
         self.messages = [

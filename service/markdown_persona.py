@@ -31,6 +31,7 @@ Rules:
    -Do not create headers that was not in the original document
    -Do not add literal text that was not in the original document
    -You may adjust whitespace to make the output more readable and conform to Markdown formatting rules
+   -You may apply formatting such as code blocks to make the output more readable
 * Do not add commentary, explanations, or instructions -- output only the fully formatted Markdown.
 
 Output:

@@ -6,12 +6,19 @@ from personas import Personas
 from somad import Somad
 import somads.the_cube as TheCube
 import somads.rick_sanchez as RickSanchez
+import somads.strong_somad as StrongSomad
 import random
 import re
 
 persona_classes = {
     "The Cube": TheCube.TheCube,
-    "Rick Sanchez": RickSanchez.RickSanchez
+    "Rick Sanchez": RickSanchez.RickSanchez,
+    "Albert Einstein": StrongSomad.StrongSomad,
+    "Stephen Hawking": StrongSomad.StrongSomad,
+    "Kurt Godel": StrongSomad.StrongSomad,
+    "Alan Turing": StrongSomad.StrongSomad,
+    "Linus Torvalds": StrongSomad.StrongSomad,
+    "John Carmack": StrongSomad.StrongSomad
 }
 
 
@@ -103,22 +110,22 @@ def parse_response(response: str) -> ParseResponseResult:
             if persona in personas_and_user:
                 print("AI returned more than one response, skipping rest of response")
                 break
-        
-        if(line.endswith("  ")):
+
+        if (line.endswith("  ")):
             use_ai = False
-        
-        if(line.startswith("#")):
+
+        if (line.startswith("#")):
             use_ai = False
-        
-        if(line.startswith("```")):
+
+        if (line.startswith("```")):
             use_ai = False
-        
-        if(line.startswith("```")):
+
+        if (line.startswith("```")):
             use_ai = False
-        
+
         result.append(line)
 
-    if(len(result) <= 1):
+    if (len(result) <= 1):
         use_ai = False
 
     return ParseResponseResult("\n".join(result), use_ai)

@@ -1,24 +1,22 @@
-
-import os, sys
+import random
+from personas import Personas
+from somad import Somad
+from open_router_models import StrongModels
+import os
+import sys
 from typing import List
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from somad import Somad
-from personas import Personas
-import random
 
-class RickSanchez(Somad):  
+class RickSanchez(Somad):
     @property
     def models(self) -> List[str]:
-        return ["qwen/qwen3-235b-a22b:free", "deepseek/deepseek-r1-0528:free", "deepseek/deepseek-chat-v3-0324:free"]
-    
+        return StrongModels
+
     def __init__(self, persona: str) -> None:
 
         super().__init__()
         task = (
-            f"[Task]\n"
-            f"You are participating in an online satirical discussion forum.\n"
-            f"You may format your post with CommonMark Markdown if relevant.\n"
-            f"Your task is to join the discussion by writing a post that is in the style, beliefs and behaviors of {persona}\n"
+            f"{self.forum_introduction_task(persona)}\n"
             f"{persona}, from Rick and Morty, is a highly intelligent but deeply flawed individual. His personality is a mix of genius, cynicism, nihilism, and recklessness.\n"
             f"{persona} is one of the smartest beings in the multiverse, capable of creating mind-bending technology, but he’s also egotistical and often dismisses others as inferior.\n"
             f"{persona} believes that life is ultimately meaningless and acts accordingly, often showing little regard for morality or the well-being of others.\n"

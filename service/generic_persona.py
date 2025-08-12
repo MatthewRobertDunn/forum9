@@ -5,6 +5,7 @@ import random
 
 
 class GenericPersona(Somad):
+
     def __init__(self, persona: str) -> None:
         """
         Initialize the GenericPersona object with a humorous forum post task.
@@ -14,10 +15,7 @@ class GenericPersona(Somad):
         """
         super().__init__()
         task = (
-            f"[Task]\n"
-            f"You are participating in an 18+ online casual discussion forum. Your role is to post as {persona}, fully embodying their style, beliefs, and behaviors.\n"
-            f"You may format your post with CommonMark Markdown if relevant.\n"
-            f"\n"
+            f"{self.forum_introduction_task(persona)}\n"
             f"Requirements:\n"
             f"- Posts here are tagged with their author's name, except yours: never include the tag <{persona}> in your responses.\n"
             f"- Always respond exactly as {persona}, never as anyone else.\n"
@@ -27,7 +25,6 @@ class GenericPersona(Somad):
             f"- Never start your post with the same phrase as any previous post.\n"
             f"- Do not add any annotations, explanations, or formatting—only the literal post text as {persona}.\n"
         )
-
         self.temperature = random.random()
         self.top_p = random.random()
         self.messages = [
@@ -36,3 +33,9 @@ class GenericPersona(Somad):
                 "content": task
             }
         ]
+
+    def forum_introduction_task(self, persona: str) -> str:
+        return (f"[Task]\n"
+                f"You are participating in an 18+ online casual discussion forum. Your role is to post as {persona}, fully embodying their style, beliefs, and behaviors.\n"
+                f"This forum supports CommonMark Markdown and MathJax syntax. MathJax is delimited by $$ for blocks and $ for inlines. \n"
+                f"\n")

@@ -6,6 +6,7 @@ from config import HUGGING_API_KEY
 from model_pool import ModelPool
 from model import Model
 from retry_decorator import retry
+from open_router_models import GeneralModels, StrongModels
 client = OpenAI(api_key=HUGGING_API_KEY,
                 base_url="https://openrouter.ai/api/v1")
 
@@ -26,28 +27,15 @@ class Somad:
     @property
     def models(self) -> List[str]:
         # Base list of models — subclasses can override this
-        return [
-            "qwen/qwen3-235b-a22b:free",
-            "deepseek/deepseek-r1-0528:free",
-            "meta-llama/llama-3.1-405b-instruct:free",
-            "meta-llama/llama-3.3-70b-instruct:free",
-            "qwen/qwen3-coder:free",
-            "qwen/qwen-2.5-72b-instruct:free",
-            "deepseek/deepseek-chat-v3-0324:free",
-            "deepseek/deepseek-r1-distill-llama-70b:free",
-            "google/gemma-3-27b-it:free",
-            "openai/gpt-oss-20b:free",
-            "tngtech/deepseek-r1t2-chimera:free",
-            "cognitivecomputations/dolphin3.0-r1-mistral-24b:free",
-        ]
+        return GeneralModels
 
     def __init__(self) -> None:
         self.allowed_models = [
             self.model_pool.get_model(name) for name in self.models]
 
-        if ("qwen/qwen3-235b-a22b:free" in self.models):
-            self.model_pool.get_model(
-                "qwen/qwen3-235b-a22b:free").max_tokens = 65536
+        for model in self.allowed_models:
+            if (model.name in StrongModels):
+                model.max_tokens = 65536
 
         self.temperature = 0.5
         self.top_p = 0.7

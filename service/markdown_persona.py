@@ -40,5 +40,3 @@ Output:
                 "content": task
             }
         ]
-        self.temperature = 0.5
-        self.top_p = 0.7

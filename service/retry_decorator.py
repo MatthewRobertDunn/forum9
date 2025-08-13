@@ -1,4 +1,5 @@
 import functools
+import time
 def retry(times, exceptions):
     """
     Retry Decorator
@@ -22,6 +23,9 @@ def retry(times, exceptions):
                             f"Exception in {func.__name__}, attempt "
                             f"{attempt + 1} of {times}: {e}"
                         )
+                        if("X-RateLimit-Limit" in str(e)):
+                            print("Rate limit exceeded, sleeping for 30 seconds")
+                            time.sleep(60)
                     else:
                         raise
         return newfn

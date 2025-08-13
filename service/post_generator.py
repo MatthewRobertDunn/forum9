@@ -27,11 +27,13 @@ class ParseResponseResult:
         self.content = content
         self.ai_clean = ai_clean
 
+
 def choose_persona(choice: str, personas: List[str]) -> str:
     for persona in random.sample(personas, len(personas)):
         if persona in choice:
             return persona
     return None
+
 
 def generate_post(question: str, id: str) -> Dict[str, any]:
     personas_and_end = Personas + ["END"]
@@ -46,7 +48,11 @@ def generate_post(question: str, id: str) -> Dict[str, any]:
         agent.add_message("\n".join(ai_input))
         agent_response, agent_model = agent.respond_with_model()
         chosen_persona = choose_persona(agent_response, personas_and_end)
-        if (chosen_persona):
+        if (len(result) > 1 and choose_persona == result[-1]["persona"]):
+            print("Repeated persona. Selecting at random")
+            agent_model.add_score(-2)
+            chosen_persona = random.choice(Personas)
+        elif (chosen_persona):
             print("Chosen persona is valid")
         else:
             print("Invalid Persona. Selecting at random")
@@ -55,7 +61,7 @@ def generate_post(question: str, id: str) -> Dict[str, any]:
 
         if (chosen_persona == "END"):
             print("END")
-            if(len(result) > 2):
+            if (len(result) > 2):
                 break
             break
 

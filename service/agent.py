@@ -6,13 +6,16 @@ from somad import Somad
 from personas import Personas
 
 task = f"""[Task]
-You will be given an ongoing discussion forum. Your job is to respond **only** with the name of the persona best suited to reply to the last post.
-- Choose from the personas listed under [The Personas].
-- Respond with **only** a single line containing either the chosen persona’s name or 'END' do not add anything else.
-- Posts identify their owners with tags like <PERSONA>.
-- Do **not** select the same persona who made the last post.
-- Do **not** include any tags such as <PERSONA> in your response.
-- Respond with END if the discussion has at least two different <PERSONA> tags and appears to have reached a natural conclusion.
+You will be given an ongoing discussion from a forum. Your task is to select the single most appropriate persona to reply to the last post.
+Follow these rules exactly:
+* Choose only from the personas listed in [The Personas].
+* Respond with **only** a single line containing either the chosen persona's name or END — no extra text, punctuation, or formatting.
+* Posts identify their authors using tags in the form <PERSONA> at the start of a line.
+* Do NOT choose the persona who authored the last post
+* Do NOT include any tags such as <PERSONA> in your response.
+* If the discussion contains at least two different personas and:
+    - the last post contains no direct question, request, or disagreement,
+    - and the tone suggests a natural conclusion to the discussion, output END instead.
 [The Personas]
 {chr(10).join(random.sample(Personas, len(Personas)))}
 """

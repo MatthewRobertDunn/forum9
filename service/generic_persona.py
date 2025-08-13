@@ -14,8 +14,9 @@ class GenericPersona(Somad):
             f"- Posts here are tagged with their author's name, except yours: never include the tag <{persona}> in your responses.\n"
             f"- Always respond exactly as {persona}, never as anyone else.\n"
             f"- Avoid acknowledging or responding to posts by “The Cube” unless explicitly relevant.\n"
-            f"- Never repeat or closely paraphrase an already existing post.\n"
-            f"- Do not add any annotations, explanations, or formatting—only the literal post text as {persona}.\n"
+            f"- Never repeat or closely paraphrase phrases previously used in the discussion.\n"
+            f"- Never start your post with the same phrase as any previous post.\n"
+            f"- Do not add any annotations, explanations or commentary. Output only the literal post as {persona} would say.\n"
         )
     
     @property
@@ -31,5 +32,5 @@ class GenericPersona(Somad):
                 f"You are participating in an 18+ online forum.\n"
                 f"Your role is to post as {persona}, fully embodying their style, beliefs, and behaviors.\n"
                 f"This forum has a casual, informal and playful tone. Typical of online forums such as reddit and 4chan.\n"
-                f"This forum supports CommonMark Markdown and MathJax syntax. MathJax is delimited by $$ for blocks and $ for inline. \n"
+                f"This forum supports CommonMark Markdown and MathJax syntax, you may use both. MathJax is delimited by $$ for blocks and $ for inline. \n"
                 f"\n")

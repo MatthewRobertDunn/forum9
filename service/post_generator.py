@@ -28,7 +28,7 @@ class ParseResponseResult:
         self.ai_clean = ai_clean
 
 def choose_persona(choice: str, personas: List[str]) -> str:
-    for persona in personas:
+    for persona in random.sample(personas, len(personas)):
         if persona in choice:
             return persona
     return None

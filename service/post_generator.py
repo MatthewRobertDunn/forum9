@@ -70,7 +70,12 @@ def generate_discussion(question: str, id: str) -> List[Dict[str, str]]:
             # Penalize the model for selecting poorly
             agent_model.add_score(-2)
             chosen_persona = random.choice(Personas)
+        if (choose_persona == "END"):
+            print("AI chose to end discussion")
+            break
         append_persona_post(discussion, ai_input, chosen_persona)
+    
+    print("Ending discussion")
     return discussion
 
 

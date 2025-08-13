@@ -1,4 +1,4 @@
-from typing import Dict, List
+from typing import Dict, List, Optional
 from agent import Agent
 from generic_persona import GenericPersona
 from markdown_persona import MarkdownPersona
@@ -10,7 +10,7 @@ import somads.strong_somad as StrongSomad
 import random
 import re
 
-persona_classes = {
+PERSONA_CLASSES = {
     "The Cube": TheCube.TheCube,
     "Rick Sanchez": RickSanchez.RickSanchez,
     "Albert Einstein": StrongSomad.StrongSomad,
@@ -21,62 +21,66 @@ persona_classes = {
     "John Carmack": StrongSomad.StrongSomad
 }
 
+PERSONAS_AND_END = Personas + ["END"]
+
 
 class ParseResponseResult:
-    def __init__(self, content: str, ai_clean: bool):
+    def __init__(self, content: str, ai_clean_post: bool):
         self.content = content
-        self.ai_clean = ai_clean
+        self.ai_clean_post = ai_clean_post
 
 
-def choose_persona(choice: str, personas: List[str]) -> str:
-    for persona in random.sample(personas, len(personas)):
+def choose_persona(choice: str) -> Optional[str]:
+    for persona in random.sample(PERSONAS_AND_END, len(PERSONAS_AND_END)):
         if persona in choice:
             return persona
     return None
 
 
-def generate_post(question: str, id: str) -> Dict[str, any]:
-    personas_and_end = Personas + ["END"]
-    result = []
+def validate_persona_choice(chosen_persona: Optional[str], discussion: List[Dict[str, str]],) -> bool:
+    if (not chosen_persona):
+        print("No persona selected")
+        return False
+
+    if (chosen_persona and len(discussion) > 1 and chosen_persona == discussion[-1]["persona"]):
+        print("Repeated persona")
+        return False
+
+    if (chosen_persona == "END" and len(discussion) <= 3):
+        print("Too early to end")
+        return False
+
+    return True
+
+
+def generate_discussion(question: str, id: str) -> List[Dict[str, str]]:
+    discussion: List[Dict[str, str]] = []
     ai_input = [f"<user>\n{question}"]
     print(ai_input[0])
-    respond_with(result, ai_input, "The Cube")
+    append_persona_post(discussion, ai_input, "The Cube")
     max_posts = random.randint(1, 20) + 2
     print(f"Max posts: {max_posts}")
-    while len(result) < max_posts:
+    while len(discussion) < max_posts:
         agent = Agent()
         agent.add_message("\n".join(ai_input))
         agent_response, agent_model = agent.respond_with_model()
-        chosen_persona = choose_persona(agent_response, personas_and_end)
-        if (len(result) > 1 and choose_persona == result[-1]["persona"]):
-            print("Repeated persona. Selecting at random")
+        chosen_persona = choose_persona(agent_response)
+        if (not validate_persona_choice(chosen_persona, discussion)):
+            print("Persona choice is invalid -- selecting random persona")
+            # Penalize the model for selecting poorly
             agent_model.add_score(-2)
             chosen_persona = random.choice(Personas)
-        elif (chosen_persona):
-            print("Chosen persona is valid")
-        else:
-            print("Invalid Persona. Selecting at random")
-            agent_model.add_score(-2)
-            chosen_persona = random.choice(Personas)
-
-        if (chosen_persona == "END"):
-            print("END")
-            if (len(result) > 2):
-                break
-            break
-
-        respond_with(result, ai_input, chosen_persona)
-    return result
+        append_persona_post(discussion, ai_input, chosen_persona)
+    return discussion
 
 
-def respond_with(result: list, ai_input: list, chosen_persona: str):
+def append_persona_post(discussion: List[Dict[str, str]], ai_input: List[str], chosen_persona: str):
     persona = get_persona(chosen_persona)
     print(f"Responding Persona: {chosen_persona}")
     persona.add_message("\n".join(ai_input + [f"<{chosen_persona}>\n"]))
     response = parse_response(persona.respond())
     ai_input.append(f"<{chosen_persona}>\n{response.content}")
-    cleaned_response = None
-    if response.ai_clean:
+    if response.ai_clean_post:
         print("Using markdown persona to clean response")
         markdown_persona = MarkdownPersona()
         markdown_persona.add_message(response.content)
@@ -91,15 +95,15 @@ def respond_with(result: list, ai_input: list, chosen_persona: str):
     if (not cleaned_response or len(cleaned_response.strip()) == 0):
         print("Skipping empty response")
         return
-    result.append({
+    discussion.append({
         "persona": chosen_persona,
         "content": cleaned_response
     })
 
 
 def get_persona(persona: str) -> Somad:
-    if persona in persona_classes:
-        return persona_classes[persona](persona)
+    if persona in PERSONA_CLASSES:
+        return PERSONA_CLASSES[persona](persona)
     else:
         return GenericPersona(persona)
 
@@ -116,7 +120,7 @@ def parse_response(response: str) -> ParseResponseResult:
     personas_and_user = Personas + ["user"]
     result = []
     headerless_response = re.sub(r'^<[^>]+>', '', response, count=1).strip()
-    use_ai = True
+    ai_clean_post = True
     for line in headerless_response.split("\n"):
         stripped_line = line.strip()
         if stripped_line.startswith("<") and line.endswith(">"):
@@ -125,21 +129,13 @@ def parse_response(response: str) -> ParseResponseResult:
                 print("AI returned more than one response, skipping rest of response")
                 break
 
-        if (line.endswith("  ")):
-            use_ai = False
-
-        if (line.startswith("#")):
-            use_ai = False
-
-        if (line.startswith("```")):
-            use_ai = False
-
-        if (line.startswith("```")):
-            use_ai = False
+        # detect if the post generation AI is already using markdown, in which case don't reformat it using ai
+        if line.endswith("  ") or line.startswith(("#", "```")):
+            ai_clean_post = False
 
         result.append(line)
 
     if (len(result) <= 1):
-        use_ai = False
+        ai_clean_post = False
 
-    return ParseResponseResult("\n".join(result), use_ai)
+    return ParseResponseResult("\n".join(result), ai_clean_post)

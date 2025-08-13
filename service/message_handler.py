@@ -1,8 +1,8 @@
 from datetime import datetime, timezone
-from post_generator import generate_post
+from post_generator import generate_discussion
 from dyanmodb_repo import insert_post
 def handle_request(question: str, id: str):
-    post = generate_post(question, id)
+    post = generate_discussion(question, id)
     if(not post):
         return
     created_date = datetime.now(timezone.utc).replace(microsecond=0)

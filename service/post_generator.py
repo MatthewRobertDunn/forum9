@@ -1,4 +1,4 @@
-from typing import Dict
+from typing import Dict, List
 from agent import Agent
 from generic_persona import GenericPersona
 from markdown_persona import MarkdownPersona
@@ -27,6 +27,11 @@ class ParseResponseResult:
         self.content = content
         self.ai_clean = ai_clean
 
+def choose_persona(choice: str, personas: List[str]) -> str:
+    for persona in personas:
+        if persona in choice:
+            return persona
+    return None
 
 def generate_post(question: str, id: str) -> Dict[str, any]:
     personas_and_end = Personas + ["END"]
@@ -40,14 +45,14 @@ def generate_post(question: str, id: str) -> Dict[str, any]:
         agent = Agent()
         agent.add_message("\n".join(ai_input))
         agent_response, agent_model = agent.respond_with_model()
-        chosen_persona = agent_response.strip()
-        chosen_persona = chosen_persona.replace('<', '').replace('>', '')
-        if (chosen_persona not in personas_and_end):
-            print("Invalid Persona. Selecting at random")
-            agent_model.add_score(-1)
-            chosen_persona = random.choice(Personas)
-        else:
+        chosen_persona = choose_persona(agent_response, personas_and_end)
+        if (chosen_persona):
             print("Chosen persona is valid")
+        else:
+            print("Invalid Persona. Selecting at random")
+            agent_model.add_score(-2)
+            chosen_persona = random.choice(Personas)
+
         if (chosen_persona == "END"):
             print("END")
             break

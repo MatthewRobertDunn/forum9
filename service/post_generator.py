@@ -55,6 +55,8 @@ def generate_post(question: str, id: str) -> Dict[str, any]:
 
         if (chosen_persona == "END"):
             print("END")
+            if(len(result) > 2):
+                break
             break
 
         respond_with(result, ai_input, chosen_persona)

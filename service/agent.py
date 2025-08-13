@@ -14,7 +14,7 @@ You will be given an ongoing discussion forum. Your job is to respond **only** w
 - Do **not** include any tags such as <PERSONA> in your response.
 - Respond with END if the discussion has at least two different <PERSONA> tags and appears to have reached a natural conclusion.
 [The Personas]
-{chr(10).join(Personas)}
+{chr(10).join(random.sample(Personas, len(Personas)))}
 """
 
 

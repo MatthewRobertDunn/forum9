@@ -25,7 +25,7 @@ def retry(times, exceptions):
                         )
                         if("X-RateLimit-Limit" in str(e)):
                             print("Rate limit exceeded, sleeping for 30 seconds")
-                            time.sleep(60)
+                            time.sleep(30)
                     else:
                         raise
         return newfn

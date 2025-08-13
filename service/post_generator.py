@@ -35,6 +35,7 @@ def generate_post(question: str, id: str) -> Dict[str, any]:
     print(ai_input[0])
     respond_with(result, ai_input, "The Cube")
     max_posts = random.randint(1, 20) + 2
+    print(f"Max posts: {max_posts}")
     while len(result) < max_posts:
         agent = Agent()
         agent.add_message("\n".join(ai_input))

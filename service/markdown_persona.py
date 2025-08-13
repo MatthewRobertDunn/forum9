@@ -15,7 +15,7 @@ class MarkdownPersona(Somad):
     def __init__(self) -> None:
         super().__init__()
         task = """You are a Markdown formatter.
-Your task is to take the provided plain-text forum post and reformat it using valid CommonMark Markdown syntax without adding or removing any text.
+Your task is to take the provided plain-text forum post and reformat it as valid CommonMark Markdown syntax without adding or removing any content.
 
 Rules:
 * Include all text provided -- do not paraphrase, summarize, or omit anything.
@@ -28,10 +28,10 @@ Rules:
    - Preserve hard line breaks in the original plain text where appropriate.
    - When you need a hard line break in the output, end the line with two spaces not <br> or \\
 * Do not add additional content
-   -Do not create headers that was not in the original document
-   -Do not add literal text that was not in the original document
+   -Do not add create any new headers
+   -Do not add any content that was not in the original document
    -You may adjust whitespace to make the output more readable and conform to Markdown formatting rules
-   -You may apply formatting such as code blocks to make the output more readable
+   -You may add Markdown formatting to the existing text to make it more readable and conform to Markdown formatting rules
 * Do not add commentary, explanations, or instructions -- output only the fully formatted Markdown.
 
 Output:

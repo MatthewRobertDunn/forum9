@@ -5,17 +5,15 @@ def handle_request(question: str, id: str):
 
     #Fetch any existing discussion
 
-
-
-    post = generate_discussion(question, id)
-    if(not post):
+    discussion = generate_discussion(question, id)
+    if(not discussion):
         return
     created_date = datetime.now(timezone.utc).replace(microsecond=0)
-    post = {
+    discussion = {
             "year": created_date.year,
             "created_date": created_date.isoformat(),
             "id": id,
             "question": question,
-            "post": post
+            "post": discussion
            }
-    insert_discussion(post)
+    insert_discussion(discussion)

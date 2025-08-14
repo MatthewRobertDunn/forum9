@@ -11,7 +11,7 @@ def question(id, **kwargs):
 
     # Extract the items from the response
     items = response.get('Items', None)
-    return items[0] if items else None
+    return items[0] if items else {}
 
 #Entry point
 if __name__ == "__main__":

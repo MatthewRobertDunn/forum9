@@ -2,7 +2,7 @@ import boto3
 from config import TABLE_NAME
 
 
-def insert_discussion(post):
+def insert_thread(post):
     # Initialize the DynamoDB resource
     dynamodb = boto3.resource('dynamodb')
     table = dynamodb.Table(TABLE_NAME)
@@ -10,7 +10,7 @@ def insert_discussion(post):
     print("Item inserted successfully!")
 
 
-def get_discussion(id):
+def get_thread(id):
     # Initialize the DynamoDB resource
     dynamodb = boto3.resource('dynamodb')
     table = dynamodb.Table(TABLE_NAME)

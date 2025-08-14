@@ -37,49 +37,49 @@ def choose_persona(choice: str) -> Optional[str]:
     return None
 
 
-def validate_persona_choice(chosen_persona: Optional[str], discussion: List[Dict[str, str]],) -> bool:
+def validate_persona_choice(chosen_persona: Optional[str], posts: List[Dict[str, str]],) -> bool:
     if (not chosen_persona):
         print("No persona selected")
         return False
 
-    if (chosen_persona and len(discussion) > 1 and chosen_persona == discussion[-1]["persona"]):
+    if (chosen_persona and len(posts) > 1 and chosen_persona == posts[-1]["persona"]):
         print("Repeated persona")
         return False
 
-    if (chosen_persona == "END" and len(discussion) <= 3):
+    if (chosen_persona == "END" and len(posts) <= 3):
         print("Too early to end")
         return False
 
     return True
 
 
-def generate_discussion(question: str, id: str) -> List[Dict[str, str]]:
-    discussion: List[Dict[str, str]] = []
+def generate_posts(question: str) -> List[Dict[str, str]]:
+    posts: List[Dict[str, str]] = []
     ai_input = [f"<user>\n{question}"]
     print(ai_input[0])
-    append_persona_post(discussion, ai_input, "The Cube")
+    append_persona_post(posts, ai_input, "The Cube")
     max_posts = random.randint(1, 20) + 2
     print(f"Max posts: {max_posts}")
-    while len(discussion) < max_posts:
+    while len(posts) < max_posts:
         agent = Agent()
         agent.add_message("\n".join(ai_input))
         agent_response, agent_model = agent.respond_with_model()
         chosen_persona = choose_persona(agent_response)
-        if (not validate_persona_choice(chosen_persona, discussion)):
+        if (not validate_persona_choice(chosen_persona, posts)):
             print("Persona choice is invalid -- selecting random persona")
             # Penalize the model for selecting poorly
             agent_model.add_score(-2)
             chosen_persona = random.choice(Personas)
         if (chosen_persona == "END"):
-            print("AI chose to end discussion")
+            print("AI chose to end thread")
             break
-        append_persona_post(discussion, ai_input, chosen_persona)
+        append_persona_post(posts, ai_input, chosen_persona)
     
-    print("Ending discussion")
-    return discussion
+    print("Ending thread")
+    return posts
 
 
-def append_persona_post(discussion: List[Dict[str, str]], ai_input: List[str], chosen_persona: str):
+def append_persona_post(posts: List[Dict[str, str]], ai_input: List[str], chosen_persona: str):
     persona = get_persona(chosen_persona)
     print(f"Responding Persona: {chosen_persona}")
     persona.add_message("\n".join(ai_input + [f"<{chosen_persona}>\n"]))
@@ -100,7 +100,7 @@ def append_persona_post(discussion: List[Dict[str, str]], ai_input: List[str], c
     if (not cleaned_response or len(cleaned_response.strip()) == 0):
         print("Skipping empty response")
         return
-    discussion.append({
+    posts.append({
         "persona": chosen_persona,
         "content": cleaned_response
     })

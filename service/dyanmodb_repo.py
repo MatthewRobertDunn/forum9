@@ -37,11 +37,11 @@ def append_post(id: str, new_post: dict[str, str]):
     print(f"Appended new post to thread {id}")
 
 
-def remove_is_processed(id: str):
+def remove_is_processing(id: str):
     dynamodb = boto3.resource('dynamodb')
     table = dynamodb.Table(TABLE_NAME)
 
     table.update_item(
         Key={'id': id},
-        UpdateExpression='REMOVE is_processed'
+        UpdateExpression='REMOVE is_processing'
     )

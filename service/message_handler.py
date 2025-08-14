@@ -1,6 +1,6 @@
 from datetime import datetime, timezone
 from thread_generator import generate_posts
-from dyanmodb_repo import insert_thread, get_thread, append_post, remove_is_processed
+from dyanmodb_repo import insert_thread, get_thread, append_post, remove_is_processing
 
 
 def handle_request(question: str, id: str):
@@ -28,4 +28,4 @@ def handle_request(question: str, id: str):
         append_post(id, post)
 
     # Mark that the thread is complete in dynamodb
-    remove_is_processed(id)
+    remove_is_processing(id)

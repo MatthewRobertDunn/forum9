@@ -4,25 +4,27 @@ from dyanmodb_repo import insert_thread, get_thread
 def handle_request(question: str, id: str):
 
     #Fetch any existing discussion
-    discussion = get_thread(id)
-    if(not discussion):
+    thread = get_thread(id)
+    if(not thread):
         created_date = datetime.now(timezone.utc).replace(microsecond=0)
-        discussion = {
+        thread = {
             "year": created_date.year,
             "created_date": created_date.isoformat(),
             "id": id,
-            "question": question
+            "question": question,
+            "is_complete": False
         }
         
 
     posts = generate_posts(question)
     if(not posts):
         return
-    discussion = {
+    thread = {
             "year": created_date.year,
             "created_date": created_date.isoformat(),
             "id": id,
             "question": question,
-            "post": posts
+            "post": posts,
+            "is_complete": True
            }
-    insert_thread(discussion)
+    insert_thread(thread)

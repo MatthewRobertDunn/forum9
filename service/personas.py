@@ -5,5 +5,5 @@ Personas = ["Ayn Rand", "Pythagoras", "Luke Skywalker", "Stephen Hawking", "Albe
             "Princess Bubblegum", "Alan Turing", "Linus Torvalds", "Ellen Ripley", "Princess Leia Organa", "Bill Gates",
             "John Carmack", "Jehovah", "Twilight Sparkle", "Hannibal Lecter", "Sigmund Freud", "Dracula", "Geralt of Rivia",
             "Tony Stark", "Steve Rogers", "Walter White", "Loki", "Thor", "Spider-Man", "Spock", "The Cube", "Rick Sanchez", "Smaug",
-            "Eric Cartman", "Nick Wilde", "Light Yagami", "Rocket Raccoon", "Harry (Disco Elysium)", "Haru (Beastars)", "Miles Tales Prower", "Sonic The Hedgehog",
-            "Gaius Julius Caesar Augustus Germanicus", "Legosh (Beastars)", "Kim Kitsuragi (Disco Elysium)"]
+            "Eric Cartman", "Nick Wilde", "Light Yagami", "Rocket Raccoon", "Harry (Disco Elysium)", "Haru (Beastars)", "Miles Tails Prower", "Sonic The Hedgehog",
+            "Gaius Julius Caesar Augustus Germanicus", "Legoshi (Beastars)", "Kim Kitsuragi (Disco Elysium)", "Louis (beastars)"]

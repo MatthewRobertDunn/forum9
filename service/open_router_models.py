@@ -10,6 +10,7 @@ GeneralModels = [
     "qwen/qwen3-coder:free",
     "deepseek/deepseek-r1-distill-llama-70b:free",
     "tngtech/deepseek-r1t2-chimera:free",
+    "cognitivecomputations/dolphin-mistral-24b-venice-edition:free",
     "google/gemma-3-27b-it:free",
     "cognitivecomputations/dolphin3.0-r1-mistral-24b:free",
     "mistralai/mistral-small-3.2-24b-instruct:free",
@@ -22,6 +23,7 @@ FastModels = [
     "meta-llama/llama-3.3-70b-instruct:free",  # 111.5tps
     "mistralai/mistral-small-3.2-24b-instruct:free",
     "openai/gpt-oss-20b:free",  # 212.1 tps
+    "cognitivecomputations/dolphin-mistral-24b-venice-edition:free",
     "qwen/qwen3-4b:free",  # 146.2tps
     "meta-llama/llama-3.2-3b-instruct:free",  # 164.2
 ]

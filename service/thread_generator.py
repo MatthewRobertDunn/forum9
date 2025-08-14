@@ -68,7 +68,7 @@ def generate_posts(question: str, posts: List[Dict[str, str]]) -> Generator[Dict
             posts.append(post)
             yield post
 
-    max_posts = random.randint(1, 20) + 2
+    max_posts = random.randint(1, 30) + 2
     print(f"Max posts: {max_posts}")
     while len(posts) < max_posts:
         agent = Agent()

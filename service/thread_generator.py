@@ -1,4 +1,4 @@
-from typing import Dict, List, Optional
+from typing import Dict, Generator, List, Optional
 from agent import Agent
 from generic_persona import GenericPersona
 from markdown_persona import MarkdownPersona
@@ -53,11 +53,16 @@ def validate_persona_choice(chosen_persona: Optional[str], posts: List[Dict[str,
     return True
 
 
-def generate_posts(question: str) -> List[Dict[str, str]]:
-    posts: List[Dict[str, str]] = []
+def generate_posts(question: str, posts: List[Dict[str, str]]) -> Generator[Dict[str, str], None, None]:
     ai_input = [f"<user>\n{question}"]
     print(ai_input[0])
-    append_persona_post(posts, ai_input, "The Cube")
+    
+    if(len(posts) == 0):
+        post = generate_post(ai_input, "The Cube")
+        if post:
+            posts.append(post)
+            yield post
+
     max_posts = random.randint(1, 20) + 2
     print(f"Max posts: {max_posts}")
     while len(posts) < max_posts:
@@ -73,13 +78,14 @@ def generate_posts(question: str) -> List[Dict[str, str]]:
         if (chosen_persona == "END"):
             print("AI chose to end thread")
             break
-        append_persona_post(posts, ai_input, chosen_persona)
-    
+        post = generate_post(ai_input, chosen_persona)
+        if post:
+            posts.append(post)
+            yield post
     print("Ending thread")
-    return posts
 
 
-def append_persona_post(posts: List[Dict[str, str]], ai_input: List[str], chosen_persona: str):
+def generate_post(ai_input: List[str], chosen_persona: str) -> Dict[str, str]:
     persona = get_persona(chosen_persona)
     print(f"Responding Persona: {chosen_persona}")
     persona.add_message("\n".join(ai_input + [f"<{chosen_persona}>\n"]))
@@ -99,11 +105,11 @@ def append_persona_post(posts: List[Dict[str, str]], ai_input: List[str], chosen
 
     if (not cleaned_response or len(cleaned_response.strip()) == 0):
         print("Skipping empty response")
-        return
-    posts.append({
+        return None
+    return {
         "persona": chosen_persona,
         "content": cleaned_response
-    })
+    }
 
 
 def get_persona(persona: str) -> Somad:

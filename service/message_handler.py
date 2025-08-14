@@ -1,7 +1,12 @@
 from datetime import datetime, timezone
 from post_generator import generate_discussion
-from dyanmodb_repo import insert_post
+from dyanmodb_repo import insert_discussion
 def handle_request(question: str, id: str):
+
+    #Fetch any existing discussion
+
+
+
     post = generate_discussion(question, id)
     if(not post):
         return
@@ -13,4 +18,4 @@ def handle_request(question: str, id: str):
             "question": question,
             "post": post
            }
-    insert_post(post)
+    insert_discussion(post)

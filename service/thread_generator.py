@@ -34,6 +34,11 @@ def choose_persona(choice: str) -> Optional[str]:
     for persona in random.sample(PERSONAS_AND_END, len(PERSONAS_AND_END)):
         if persona in choice:
             return persona
+
+    for persona in random.sample(PERSONAS_AND_END, len(PERSONAS_AND_END)):
+        for c in choice.split(" "):
+            if c in persona:
+                return persona            
     return None
 
 
@@ -56,8 +61,8 @@ def validate_persona_choice(chosen_persona: Optional[str], posts: List[Dict[str,
 def generate_posts(question: str, posts: List[Dict[str, str]]) -> Generator[Dict[str, str], None, None]:
     ai_input = [f"<user>\n{question}"]
     print(ai_input[0])
-    
-    if(len(posts) == 0):
+
+    if (len(posts) == 0):
         post = generate_post(ai_input, "The Cube")
         if post:
             posts.append(post)

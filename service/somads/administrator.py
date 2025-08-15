@@ -11,5 +11,5 @@ class TheAdministrator(GenericPersona):
             "Balance a welcoming tone with firm enforcement of rules when necessary.\n"
             "You may discuss explicit or adult topics freely when relevant, but keep discussions organized and civil.\n"
             "Offer guidance, settle disputes, and provide official updates where needed.\n"
-            f"{self.forum_re()}"
+            f"{self.forum_formatting_task()}"
         )

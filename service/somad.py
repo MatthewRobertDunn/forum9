@@ -128,10 +128,10 @@ class Somad:
         print("----raw response end----")
 
         # Remove unnecessary reasoning from the response
-        text = re.sub(r"<think>.*?</think>", "", text,
-                      flags=re.DOTALL | re.IGNORECASE)
+        text = re.sub(r"<think>.*?(?:</think>|$)", "",
+                      text, flags=re.DOTALL | re.IGNORECASE)
 
-        text = re.sub(r"◁think▷.*?◁/think▷", "", text,
+        text = re.sub(r"◁think▷.*?(?:◁/think▷|$)", "", text,
                       flags=re.DOTALL | re.IGNORECASE)
 
         text = text.strip()

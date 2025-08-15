@@ -124,6 +124,10 @@ class Somad:
         #Remove unnecessary reasoning from the response
         text = re.sub(r"<think>.*?</think>", "", text,
                       flags=re.DOTALL | re.IGNORECASE)
+        
+        text = re.sub(r"◁think▷.*?◁/think▷", "", text,
+                      flags=re.DOTALL | re.IGNORECASE)
+
 
         text = text.strip()
         # Score the response, penalize empty response

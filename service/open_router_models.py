@@ -28,7 +28,7 @@ FastModels = [
     "cognitivecomputations/dolphin-mistral-24b-venice-edition:free",
     "qwen/qwen3-4b:free",  # 146.2tps
     "meta-llama/llama-3.2-3b-instruct:free",  # 164.2
-    "moonshotai/kimi-vl-a3b-thinking:free", # 200
+    "moonshotai/kimi-vl-a3b-thinking:free",  # 200
 ]
 
 # Represents the strongest reasoning models, usually slower, gets more token allocation
@@ -39,5 +39,10 @@ StrongModels = [
     "deepseek/deepseek-r1-0528:free",
     "tngtech/deepseek-r1t2-chimera:free",
     "meta-llama/llama-3.1-405b-instruct:free",
+    "moonshotai/kimi-dev-72b:free",
+]
+
+# Models that require a lot of tokens
+HugeTokenModels = [
     "moonshotai/kimi-vl-a3b-thinking:free"
 ]

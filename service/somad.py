@@ -6,7 +6,7 @@ from config import HUGGING_API_KEY
 from model_pool import ModelPool
 from model import Model
 from retry_decorator import retry
-from open_router_models import GeneralModels, StrongModels
+from open_router_models import GeneralModels, HugeTokenModels, StrongModels
 client = OpenAI(api_key=HUGGING_API_KEY,
                 base_url="https://openrouter.ai/api/v1")
 
@@ -51,6 +51,9 @@ class Somad:
 
         for model in self.allowed_models:
             if (model.name in StrongModels):
+                model.max_tokens = 32768
+
+            if (model.name in HugeTokenModels):
                 model.max_tokens = 32768
 
         self.persona = persona

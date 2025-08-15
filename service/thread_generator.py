@@ -152,6 +152,9 @@ def parse_response(response: str) -> ParseResponseResult:
         if line.endswith("  ") or line.startswith(("#", "```")):
             ai_clean_post = False
 
+        if(stripped_line == ""):
+            ai_clean_post = False
+
         result.append(line)
 
     if (len(result) <= 1):

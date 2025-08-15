@@ -1,4 +1,3 @@
-
 from typing import List
 from open_router_models import StrongModels
 from somad import Somad

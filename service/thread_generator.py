@@ -8,6 +8,7 @@ import somads.the_cube as TheCube
 import somads.rick_sanchez as RickSanchez
 import somads.strong_somad as StrongSomad
 import somads.professor_persona as ProfessorPersona
+from somads.administrator import TheAdministrator
 import random
 import re
 
@@ -19,7 +20,8 @@ PERSONA_CLASSES = {
     "Kurt Godel": ProfessorPersona.ProfessorPersona,
     "Alan Turing": StrongSomad.StrongSomad,
     "Linus Torvalds": StrongSomad.StrongSomad,
-    "John Carmack": StrongSomad.StrongSomad
+    "John Carmack": StrongSomad.StrongSomad,
+    "The Administrator": TheAdministrator.TheAdministrator
 }
 
 PERSONAS_AND_END = Personas + ["END"]

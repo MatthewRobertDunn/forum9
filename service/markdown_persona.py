@@ -2,7 +2,6 @@ from typing import List
 from open_router_models import FastModels
 from somad import Somad
 
-
 class MarkdownPersona(Somad):
     @property
     def model_bias_exponent(self) -> float:

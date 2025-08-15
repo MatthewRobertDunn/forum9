@@ -8,25 +8,12 @@ from model_pool import ModelPool
 from model import Model
 from retry_decorator import retry
 from open_router_models import GeneralModels, StrongModels
-from concurrent.futures import ProcessPoolExecutor, TimeoutError
 client = OpenAI(api_key=HUGGING_API_KEY,
                 base_url="https://openrouter.ai/api/v1")
 
 
-def call_api(model: Model, messages: List[dict], temperature: float = 0.5, top_p: float = 0.7):
-    return client.chat.completions.create(
-        model=model.name,
-        messages=messages,
-        temperature=temperature,
-        max_tokens=model.max_tokens,
-        top_p=top_p
-    )
-
-
 class Somad:
     _model_pools = {}
-    # shared executor for all instances
-    _executor = ProcessPoolExecutor(max_workers=1)
 
     def __init_subclass__(cls, **kwargs):
         super().__init_subclass__(**kwargs)
@@ -54,7 +41,7 @@ class Somad:
     @property
     def task(self) -> str:
         return ""
-
+    
     @property
     def model_bias_exponent(self) -> float:
         return 2.0
@@ -106,22 +93,21 @@ class Somad:
         print(
             f"Selected model: {model.name} score {model.score} temperature: {self.temperature} top_p: {self.top_p} max_tokens: {model.max_tokens}")
 
-        text = None
-
-        timeout = 5 * 60
-        future = self._executor.submit(call_api, model, self.messages,
-                                       self.temperature, self.top_p)
+        response_message = None
         try:
-            # strict wall-clock limit
-            response = future.result(timeout=timeout)
-            text = response.choices[0].message.content
-        except TimeoutError:
-            future.cancel()  # stops the process if still running
-            model.add_score(-1)
-            raise TimeoutError(f"API call exceeded {timeout} seconds")
+            response = client.chat.completions.create(
+                model=model.name,
+                messages=self.messages,
+                temperature=self.temperature,
+                max_tokens=model.max_tokens,
+                top_p=self.top_p,
+                timeout=240
+            )
+            response_message = response.choices[0].message
         except Exception as e:
             model.add_score(-1)
             raise
+        text = response_message.content
         print("----raw response----")
         print(text)
         print("----raw response end----")
@@ -135,6 +121,3 @@ class Somad:
         else:
             model.add_score(-1)
         return text, model
-
-
-atexit.register(lambda: Somad._executor.shutdown(wait=False))

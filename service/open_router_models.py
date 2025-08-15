@@ -19,7 +19,7 @@ GeneralModels = [
     "moonshotai/kimi-vl-a3b-thinking:free",
 ]
 
-# The fastest models of the collection, good for dumb characters, formatting.
+# The fastest models of the collection, don't put reasoning models here
 FastModels = [
     "qwen/qwen-2.5-72b-instruct:free",  # 100tps
     "meta-llama/llama-3.3-70b-instruct:free",  # 111.5tps

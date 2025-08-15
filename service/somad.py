@@ -101,6 +101,7 @@ class Somad:
                 messages=self.messages,
                 temperature=self.temperature,
                 max_tokens=model.max_tokens,
+                reasoning_effort="low",
                 top_p=self.top_p,
                 timeout=10,
                 stream=True

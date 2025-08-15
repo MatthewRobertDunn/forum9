@@ -103,13 +103,15 @@ class Somad:
                 timeout=10,
                 stream=True
             )
+            text_parts = []
             for chunk in response:
                 # The event can have 'choices' with 'delta' objects
                 for choice in chunk.choices:
                     delta = choice.delta.content
                     if delta:
                         print(".", end="", flush=True)
-                        text += delta
+                        text_parts.append(delta)
+            text = "".join(text_parts)
             print()
         except Exception as e:
             #penalize the model on any failures so a new model is selected next time

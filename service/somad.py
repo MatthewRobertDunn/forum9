@@ -1,4 +1,3 @@
-import atexit
 import random
 import re
 from typing import List, Optional, Tuple
@@ -112,12 +111,14 @@ class Somad:
                         print(".", end="", flush=True)
                         text += delta
         except Exception as e:
-            #Penalize the model for failing
+            #penalize the model on any failures so a new model is selected next time
             model.add_score(-1)
             raise
         print("----raw response----")
         print(text)
         print("----raw response end----")
+
+        #Remove unnecessary reasoning from the response
         text = re.sub(r"<think>.*?</think>", "", text,
                       flags=re.DOTALL | re.IGNORECASE)
 

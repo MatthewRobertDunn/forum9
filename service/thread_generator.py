@@ -64,8 +64,22 @@ def validate_persona_choice(chosen_persona: Optional[str], posts: List[Dict[str,
     return True
 
 
+def get_ai_input(posts: List[Dict[str, str]], question: str = None) -> List[str]:
+    ai_input: List[str] = []
+    if (len(posts) == 0 and question):
+        ai_input.append(f"<user>\n{question}")
+        return ai_input
+
+    for i, post in enumerate(posts):
+        if (i == 0 and post["persona"] == "The Cube"):
+            continue  # Prevent other AI responding to The Cube
+        ai_input.append(f"<{post['persona']}>\n{post['content']}")
+    return ai_input
+
+
 def generate_posts(question: str, posts: List[Dict[str, str]]) -> Generator[Dict[str, str], None, None]:
-    ai_input = [f"<user>\n{question}"]
+    posts = posts.copy()
+    ai_input = get_ai_input(posts, question)
     print(ai_input[0])
 
     if (len(posts) == 0):
@@ -77,6 +91,7 @@ def generate_posts(question: str, posts: List[Dict[str, str]]) -> Generator[Dict
     max_posts = random.randint(1, 30) + 2
     print(f"Max posts: {max_posts}")
     while len(posts) < max_posts:
+        ai_input = get_ai_input(posts, question)
         agent = Agent()
         agent.add_message("\n".join(ai_input))
         agent_response, agent_model = agent.respond_with_model()
@@ -101,7 +116,6 @@ def generate_post(ai_input: List[str], chosen_persona: str) -> Dict[str, str]:
     print(f"Responding Persona: {chosen_persona}")
     persona.add_message("\n".join(ai_input + [f"<{chosen_persona}>\n"]))
     response = parse_response(persona.respond())
-    ai_input.append(f"<{chosen_persona}>\n{response.content}")
     if response.ai_clean_post:
         print("Using markdown persona to clean response")
         markdown_persona = MarkdownPersona()
@@ -155,7 +169,7 @@ def parse_response(response: str) -> ParseResponseResult:
         if line.endswith("  ") or line.startswith(("#", "```")):
             ai_clean_post = False
 
-        if(stripped_line == ""):
+        if (stripped_line == ""):
             ai_clean_post = False
 
         result.append(line)

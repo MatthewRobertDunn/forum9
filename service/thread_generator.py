@@ -64,7 +64,7 @@ def validate_persona_choice(chosen_persona: Optional[str], posts: List[Dict[str,
     return True
 
 
-def get_ai_input(posts: List[Dict[str, str]], question: str = None) -> List[str]:
+def get_ai_input(posts: List[Dict[str, str]], question: str) -> List[str]:
     ai_input: List[str] = []
     ai_input.append(f"<user>\n{question}")
 

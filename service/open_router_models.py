@@ -39,5 +39,5 @@ StrongModels = [
     "deepseek/deepseek-r1-0528:free",
     "tngtech/deepseek-r1t2-chimera:free",
     "meta-llama/llama-3.1-405b-instruct:free",
-    "moonshotai/kimi-dev-72b:free",
+    "moonshotai/kimi-vl-a3b-thinking:free"
 ]

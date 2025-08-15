@@ -110,6 +110,7 @@ class Somad:
                     if delta:
                         print(".", end="", flush=True)
                         text += delta
+            print()
         except Exception as e:
             #penalize the model on any failures so a new model is selected next time
             model.add_score(-1)

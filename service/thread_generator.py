@@ -21,7 +21,7 @@ PERSONA_CLASSES = {
     "Alan Turing": StrongSomad.StrongSomad,
     "Linus Torvalds": StrongSomad.StrongSomad,
     "John Carmack": StrongSomad.StrongSomad,
-    "The Administrator": TheAdministrator.TheAdministrator
+    "The Administrator": TheAdministrator
 }
 
 PERSONAS_AND_END = Personas + ["END"]

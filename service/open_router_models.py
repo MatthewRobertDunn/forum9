@@ -6,6 +6,7 @@ GeneralModels = [
     "deepseek/deepseek-r1-0528:free",
     "meta-llama/llama-3.1-405b-instruct:free",
     "meta-llama/llama-3.3-70b-instruct:free",
+    "moonshotai/kimi-dev-72b:free",
     "qwen/qwen-2.5-72b-instruct:free",
     "qwen/qwen3-coder:free",
     "deepseek/deepseek-r1-distill-llama-70b:free",
@@ -19,6 +20,7 @@ GeneralModels = [
 
 # The fastest models of the collection, good for dumb characters, formatting.
 FastModels = [
+    "moonshotai/kimi-dev-72b:free",
     "qwen/qwen-2.5-72b-instruct:free",  # 100tps
     "meta-llama/llama-3.3-70b-instruct:free",  # 111.5tps
     "mistralai/mistral-small-3.2-24b-instruct:free",

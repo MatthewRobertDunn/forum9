@@ -21,7 +21,6 @@ GeneralModels = [
 
 # The fastest models of the collection, good for dumb characters, formatting.
 FastModels = [
-    "moonshotai/kimi-dev-72b:free",
     "qwen/qwen-2.5-72b-instruct:free",  # 100tps
     "meta-llama/llama-3.3-70b-instruct:free",  # 111.5tps
     "mistralai/mistral-small-3.2-24b-instruct:free",

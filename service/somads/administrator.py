@@ -1,7 +1,7 @@
 from typing import List
 from open_router_models import StrongModels
-from somad import Somad
-class TheAdministrator(Somad):
+from generic_persona import GenericPersona
+class TheAdministrator(GenericPersona):
     @property
     def task(self) -> str:
         return (
@@ -11,5 +11,5 @@ class TheAdministrator(Somad):
             "Balance a welcoming tone with firm enforcement of rules when necessary.\n"
             "You may discuss explicit or adult topics freely when relevant, but keep discussions organized and civil.\n"
             "Offer guidance, settle disputes, and provide official updates where needed.\n"
-            f"{self.forum_formatting_task()}"
+            f"{self.forum_re()}"
         )

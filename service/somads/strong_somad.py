@@ -1,4 +1,3 @@
-import random
 from generic_persona import GenericPersona
 from open_router_models import StrongModels
 import os

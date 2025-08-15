@@ -1,10 +1,10 @@
 from typing import List
 from open_router_models import StrongModels
-from somad import Somad
 from personas import Personas
+from generic_persona import GenericPersona
 
 
-class ProfessorPersona(Somad):
+class ProfessorPersona(GenericPersona):
     @property
     def models(self) -> List[str]:
         return StrongModels

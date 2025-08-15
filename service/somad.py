@@ -75,10 +75,6 @@ class Somad:
             self.allowed_models,
             key=lambda m: (-m.score, m.priority)
         )
-
-        for model in models:
-            print(f"Model: {model.name} score: {model.score} priority: {model.priority}")
-        
         if not models:
             return None
         r = random.random() ** self.model_bias_exponent

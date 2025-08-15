@@ -46,8 +46,8 @@ class Somad:
         return 2.0
 
     def __init__(self, persona: str = None) -> None:
-        self.allowed_models = [
-            self.model_pool.get_model(name) for name in self.models]
+        self.allowed_models = [self.model_pool.create_model(
+            name, priority=i) for i, name in enumerate(self.models)]
 
         for model in self.allowed_models:
             if (model.name in StrongModels):
@@ -71,8 +71,10 @@ class Somad:
         self.messages.append(new_message)
 
     def select_model(self) -> Optional[Model]:
-        models = sorted(self.allowed_models,
-                        key=lambda m: m.score, reverse=True)
+        models = sorted(
+            self.allowed_models,
+            key=lambda m: (-m.score, m.priority)
+        )
         if not models:
             return None
         r = random.random() ** self.model_bias_exponent
@@ -114,20 +116,19 @@ class Somad:
             text = "".join(text_parts)
             print()
         except Exception as e:
-            #penalize the model on any failures so a new model is selected next time
+            # penalize the model on any failures so a new model is selected next time
             model.add_score(-1)
             raise
         print("----raw response----")
         print(text)
         print("----raw response end----")
 
-        #Remove unnecessary reasoning from the response
+        # Remove unnecessary reasoning from the response
         text = re.sub(r"<think>.*?</think>", "", text,
                       flags=re.DOTALL | re.IGNORECASE)
-        
+
         text = re.sub(r"◁think▷.*?◁/think▷", "", text,
                       flags=re.DOTALL | re.IGNORECASE)
-
 
         text = text.strip()
         # Score the response, penalize empty response

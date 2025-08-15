@@ -9,6 +9,7 @@ import somads.rick_sanchez as RickSanchez
 import somads.strong_somad as StrongSomad
 import somads.professor_persona as ProfessorPersona
 from somads.administrator import TheAdministrator
+from somads.roman_emperor import RomanEmperor
 import random
 import re
 
@@ -21,7 +22,8 @@ PERSONA_CLASSES = {
     "Alan Turing": StrongSomad.StrongSomad,
     "Linus Torvalds": StrongSomad.StrongSomad,
     "John Carmack": StrongSomad.StrongSomad,
-    "The Administrator": TheAdministrator
+    "The Administrator": TheAdministrator,
+    "Gaius Julius Caesar Augustus Germanicus": RomanEmperor
 }
 
 PERSONAS_AND_END = Personas + ["END"]

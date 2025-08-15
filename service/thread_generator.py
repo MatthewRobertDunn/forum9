@@ -23,7 +23,8 @@ PERSONA_CLASSES = {
     "Linus Torvalds": StrongSomad.StrongSomad,
     "John Carmack": StrongSomad.StrongSomad,
     "The Administrator": TheAdministrator,
-    "Gaius Julius Caesar Augustus Germanicus": RomanEmperor
+    "Gaius Julius Caesar Augustus Germanicus": RomanEmperor,
+    "Lentulus Batiatus": RomanEmperor
 }
 
 PERSONAS_AND_END = Personas + ["END"]

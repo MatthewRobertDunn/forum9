@@ -41,7 +41,7 @@ class Somad:
     @property
     def task(self) -> str:
         return ""
-    
+
     @property
     def model_bias_exponent(self) -> float:
         return 2.0
@@ -93,7 +93,7 @@ class Somad:
         print(
             f"Selected model: {model.name} score {model.score} temperature: {self.temperature} top_p: {self.top_p} max_tokens: {model.max_tokens}")
 
-        response_message = None
+        text = ""
         try:
             response = client.chat.completions.create(
                 model=model.name,
@@ -101,13 +101,20 @@ class Somad:
                 temperature=self.temperature,
                 max_tokens=model.max_tokens,
                 top_p=self.top_p,
-                timeout=240
+                timeout=10,
+                stream=True
             )
-            response_message = response.choices[0].message
+            for chunk in response:
+                # The event can have 'choices' with 'delta' objects
+                for choice in chunk.choices:
+                    delta = choice.delta.content
+                    if delta:
+                        print(".", end="", flush=True)
+                        text += delta
         except Exception as e:
+            #Penalize the model for failing
             model.add_score(-1)
             raise
-        text = response_message.content
         print("----raw response----")
         print(text)
         print("----raw response end----")

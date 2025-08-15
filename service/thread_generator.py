@@ -7,15 +7,16 @@ from somad import Somad
 import somads.the_cube as TheCube
 import somads.rick_sanchez as RickSanchez
 import somads.strong_somad as StrongSomad
+import somads.professor_persona as ProfessorPersona
 import random
 import re
 
 PERSONA_CLASSES = {
     "The Cube": TheCube.TheCube,
     "Rick Sanchez": RickSanchez.RickSanchez,
-    "Albert Einstein": StrongSomad.StrongSomad,
-    "Stephen Hawking": StrongSomad.StrongSomad,
-    "Kurt Godel": StrongSomad.StrongSomad,
+    "Albert Einstein": ProfessorPersona.ProfessorPersona,
+    "Stephen Hawking": ProfessorPersona.ProfessorPersona,
+    "Kurt Godel": ProfessorPersona.ProfessorPersona,
     "Alan Turing": StrongSomad.StrongSomad,
     "Linus Torvalds": StrongSomad.StrongSomad,
     "John Carmack": StrongSomad.StrongSomad

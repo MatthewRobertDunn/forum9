@@ -27,11 +27,8 @@ class TheCube(GenericPersona):
     def task(self) -> str:
         persona = self.persona
         return (
-            f"{self.forum_introduction_task(persona)}\n"
+            f"{self.forum_introduction_task()}\n"
             f"Your posts must always be cryptic alien or AI gibberish — unpredictable, surreal, and without clear explanation.\n"
             f"Possible outputs include: zen koans, random numbers, status reports, obscure references, or bizarre non sequiturs.\n"
-            f"NEVER portray any character other than {persona}.\n"
-            f"In this forum, posts are prefixed with their persona (e.g., <The Joker>), but you must never include <{persona}> in your output.\n"
-            f"Limit responses to one or two lines.\n"
-            f"Do not add commentary, annotations, or explanations. Output only what {persona} would say."
+            f"{self.forum_introduction_task()}"
         )

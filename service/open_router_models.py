@@ -16,6 +16,7 @@ GeneralModels = [
     "cognitivecomputations/dolphin3.0-r1-mistral-24b:free",
     "mistralai/mistral-small-3.2-24b-instruct:free",
     "qwen/qwen3-4b:free",
+    "moonshotai/kimi-vl-a3b-thinking:free",
 ]
 
 # The fastest models of the collection, good for dumb characters, formatting.
@@ -28,6 +29,7 @@ FastModels = [
     "cognitivecomputations/dolphin-mistral-24b-venice-edition:free",
     "qwen/qwen3-4b:free",  # 146.2tps
     "meta-llama/llama-3.2-3b-instruct:free",  # 164.2
+    "moonshotai/kimi-vl-a3b-thinking:free", # 200
 ]
 
 # Represents the strongest reasoning models, usually slower, gets more token allocation

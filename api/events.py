@@ -2,7 +2,7 @@
 import json
 from queue import Queue, Full, Empty
 import threading
-from typing import Dict, List, Set
+from typing import Dict, Set
 from boto3.dynamodb.conditions import Key
 from flask import Response
 from request_handler import handle_request

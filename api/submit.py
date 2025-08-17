@@ -3,21 +3,18 @@ import boto3
 from config import QUEUE_URL
 from request_handler import handle_request
 
-def submit(body, **kwargs):
+def submit(body):
     # Initialize the SQS client
     sqs = boto3.client('sqs')
     # Ensure the 'message' field exists, otherwise raise a ValueError
     if 'message' not in body:
         raise ValueError("'message' field is required in the input")
-    
+
     # Send the message to the SQS queue
     response = sqs.send_message(
         QueueUrl=QUEUE_URL,
-        MessageBody=body['message'].strip()  # Convert the dictionary to a JSON string
+        # Convert the dictionary to a JSON string
+        MessageBody=body['message'].strip()
     )
     # Print the response
     return response['MessageId']
-
-#Entry point
-if __name__ == "__main__":
-    handle_request(submit, 'POST')  # Call handle_request and pass the service function

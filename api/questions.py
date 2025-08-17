@@ -5,7 +5,7 @@ from request_handler import handle_request
 from datetime import datetime
 from dynamodb import table
 
-def questions(date: str = None, reverse = None, **kwargs):  
+def questions(date: str = None, reverse = None):  
     # Convert the date string to a datetime object
     # and set a default value
     if date is not None:
@@ -34,8 +34,3 @@ def questions(date: str = None, reverse = None, **kwargs):
     # Extract the items from the response
     items = response.get('Items', [])
     return items
-  
-
-#Entry point for CGI version
-if __name__ == "__main__":
-    handle_request(questions, 'GET')  # Call handle_request and pass the service function

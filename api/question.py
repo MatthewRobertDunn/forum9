@@ -3,7 +3,7 @@ from boto3.dynamodb.conditions import Key
 from request_handler import handle_request
 from dynamodb import table
 
-def question(id, **kwargs):
+def question(id: str):
     # Query the table
     response = table.query(
         KeyConditionExpression=Key('id').eq(id),
@@ -12,7 +12,3 @@ def question(id, **kwargs):
     # Extract the items from the response
     items = response.get('Items', None)
     return items[0] if items else {}
-
-#Entry point
-if __name__ == "__main__":
-    handle_request(question, 'GET')  # Call handle_request and pass the service function

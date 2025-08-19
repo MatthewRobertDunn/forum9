@@ -1,11 +1,10 @@
 from typing import Dict, Generator, List, Optional
-from service.src.persona_somads import PERSONA_CLASSES
+from .persona_somads import PERSONA_CLASSES
 from .agent import Agent
 from .generic_persona import GenericPersona
 from .markdown_persona import MarkdownPersona
 from .personas import Personas
 from .somad import Somad
-from .somads.the_cube import TheCube
 import random
 import re
 

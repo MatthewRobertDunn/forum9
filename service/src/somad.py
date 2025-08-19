@@ -1,12 +1,14 @@
+from .notifications.notification import TypingNotification
+from .notifications.publisher import publish_thread_notification
+from .open_router_models import GeneralModels, HugeTokenModels, StrongModels
+from .retry_decorator import retry
 import random
 import re
 from typing import List, Optional, Tuple
 from openai import OpenAI
 from .config import HUGGING_API_KEY
 from .model_pool import ModelPool
-from. model import Model
-from .retry_decorator import retry
-from .open_router_models import GeneralModels, HugeTokenModels, StrongModels
+from . model import Model
 client = OpenAI(api_key=HUGGING_API_KEY,
                 base_url="https://openrouter.ai/api/v1")
 
@@ -84,20 +86,24 @@ class Somad:
         index = int(r * len(models))
         return models[index]
 
-    def respond(self) -> Optional[str]:
-        text, _ = self.respond_with_model()
+    def respond(self, enable_notification=False) -> Optional[str]:
+        text, _ = self.respond_with_model(enable_notification)
         return text
 
     @retry(times=3, exceptions=(Exception,))
-    def respond_with_model(self) -> Tuple[Optional[str], Optional[Model]]:
+    def respond_with_model(self, enable_notification) -> Tuple[Optional[str], Optional[Model]]:
         model = self.select_model()
         if not model:
             print("No allowed models available")
             return None, None
         print(
             f"Selected model: {model.name} score {model.score} temperature: {self.temperature} top_p: {self.top_p} max_tokens: {model.max_tokens}")
-
         text = ""
+
+        if (enable_notification):
+            publish_thread_notification(
+                TypingNotification(persona=self.persona, count=0))
+
         try:
             response = client.chat.completions.create(
                 model=model.name,
@@ -117,6 +123,9 @@ class Somad:
                     if delta:
                         print(".", end="", flush=True)
                         text_parts.append(delta)
+                        if (enable_notification):
+                            publish_thread_notification(TypingNotification(
+                                persona=self.persona, count=len(text_parts)))
             text = "".join(text_parts)
             print()
         except Exception as e:

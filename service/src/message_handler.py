@@ -1,5 +1,5 @@
 from datetime import datetime, timezone
-from .scopes import thread_scope
+from .scopes.thread_scope import thread_scope
 from .thread_generator import generate_posts
 from .dyanmodb_repo import insert_thread, get_thread, append_post, remove_is_processing
 

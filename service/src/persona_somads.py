@@ -1,4 +1,4 @@
-from service.src.somads.the_cube import TheCube
+from .somads.the_cube import TheCube
 from .somads.rick_sanchez import RickSanchez
 from .somads.strong_somad import StrongSomad
 from .somads.professor_persona import ProfessorPersona

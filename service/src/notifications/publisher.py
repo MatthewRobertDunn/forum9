@@ -3,9 +3,9 @@ from dataclasses import asdict
 import json
 from typing import Any
 import zmq
-from notification import Notification
+from .notification import Notification
 from ..config import ZMQ_BINDING
-from ..scopes import current_thread_id
+from ..scopes.thread_scope import current_thread_id
 # Create an asyncio-aware context
 context = zmq.Context()
 # Create a PUB socket

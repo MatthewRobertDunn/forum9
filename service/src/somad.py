@@ -90,6 +90,16 @@ class Somad:
         text, _ = self.respond_with_model(enable_notification)
         return text
 
+    def clean_think(self, text: str, open_tag: str, close_tag: str) -> str:
+        open_tag_esc = re.escape(open_tag)
+        close_tag_esc = re.escape(close_tag)
+        return re.sub(
+            rf"(?:{open_tag_esc}).*?(?:{close_tag_esc})(?!.*(?:{close_tag_esc}))|(?:{open_tag_esc}).*?$",
+            "",
+            text,
+            flags=re.DOTALL | re.IGNORECASE
+        )
+
     @retry(times=3, exceptions=(Exception,))
     def respond_with_model(self, enable_notification=False) -> Tuple[Optional[str], Optional[Model]]:
         model = self.select_model()
@@ -136,17 +146,9 @@ class Somad:
         print(text)
         print("----raw response end----")
 
-        # Define opening and closing tag patterns
-        open_tag = r"<think>|◁think▷"
-        close_tag = r"</think>|◁/think▷"
-
         # Remove from first opening tag to last closing tag, or to end if missing
-        text = re.sub(
-            rf"(?:{open_tag}).*?(?:{close_tag})(?!.*(?:{close_tag}))|(?:{open_tag}).*?$",
-            "",
-            text,
-            flags=re.DOTALL | re.IGNORECASE
-        )
+        text = self.clean_think(text, "<think>", "</think>")
+        text = self.clean_think(text, "◁think▷", "◁/think▷")
 
         text = text.strip()
         # Score the response, penalize empty response

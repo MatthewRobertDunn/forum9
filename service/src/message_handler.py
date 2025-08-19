@@ -1,6 +1,6 @@
 from datetime import datetime, timezone
-from thread_generator import generate_posts
-from dyanmodb_repo import insert_thread, get_thread, append_post, remove_is_processing
+from .thread_generator import generate_posts
+from .dyanmodb_repo import insert_thread, get_thread, append_post, remove_is_processing
 
 
 def handle_request(question: str, id: str):

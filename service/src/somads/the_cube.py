@@ -1,15 +1,8 @@
 
-import random
 from typing import List
 from personas import Personas
-from generic_persona import GenericPersona
-from open_router_models import FastModels
-from somad import Somad
-import os
-import sys
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
-
+from ..generic_persona import GenericPersona
+from ..open_router_models import FastModels
 class TheCube(GenericPersona):
     @property
     def temperature(self) -> float:

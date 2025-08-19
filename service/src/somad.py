@@ -2,11 +2,11 @@ import random
 import re
 from typing import List, Optional, Tuple
 from openai import OpenAI
-from config import HUGGING_API_KEY
-from model_pool import ModelPool
-from model import Model
-from retry_decorator import retry
-from open_router_models import GeneralModels, HugeTokenModels, StrongModels
+from .config import HUGGING_API_KEY
+from .model_pool import ModelPool
+from. model import Model
+from .retry_decorator import retry
+from .open_router_models import GeneralModels, HugeTokenModels, StrongModels
 client = OpenAI(api_key=HUGGING_API_KEY,
                 base_url="https://openrouter.ai/api/v1")
 

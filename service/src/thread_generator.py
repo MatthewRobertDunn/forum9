@@ -1,27 +1,27 @@
 from typing import Dict, Generator, List, Optional
-from agent import Agent
-from generic_persona import GenericPersona
-from markdown_persona import MarkdownPersona
-from personas import Personas
-from somad import Somad
-import somads.the_cube as TheCube
-import somads.rick_sanchez as RickSanchez
-import somads.strong_somad as StrongSomad
-import somads.professor_persona as ProfessorPersona
-from somads.administrator import TheAdministrator
-from somads.roman_emperor import RomanEmperor
+from .agent import Agent
+from .generic_persona import GenericPersona
+from .markdown_persona import MarkdownPersona
+from .personas import Personas
+from .somad import Somad
+from .somads.the_cube import TheCube
+from somads.rick_sanchez import RickSanchez
+from somads.strong_somad import StrongSomad
+from somads.professor_persona import ProfessorPersona
+from .somads.administrator import TheAdministrator
+from .somads.roman_emperor import RomanEmperor
 import random
 import re
 
 PERSONA_CLASSES = {
-    "The Cube": TheCube.TheCube,
-    "Rick Sanchez": RickSanchez.RickSanchez,
-    "Albert Einstein": ProfessorPersona.ProfessorPersona,
-    "Stephen Hawking": ProfessorPersona.ProfessorPersona,
-    "Kurt Godel": ProfessorPersona.ProfessorPersona,
-    "Alan Turing": StrongSomad.StrongSomad,
-    "Linus Torvalds": StrongSomad.StrongSomad,
-    "John Carmack": StrongSomad.StrongSomad,
+    "The Cube": TheCube,
+    "Rick Sanchez": RickSanchez,
+    "Albert Einstein": ProfessorPersona,
+    "Stephen Hawking": ProfessorPersona,
+    "Kurt Godel": ProfessorPersona,
+    "Alan Turing": StrongSomad,
+    "Linus Torvalds": StrongSomad,
+    "John Carmack": StrongSomad,
     "The Administrator": TheAdministrator,
     "Gaius Julius Caesar Augustus Germanicus": RomanEmperor,
     "Lentulus Batiatus": RomanEmperor

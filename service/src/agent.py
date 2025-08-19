@@ -1,9 +1,9 @@
 
 import random
 from typing import List
-from open_router_models import FastModels
-from somad import Somad
-from personas import Personas
+from .open_router_models import FastModels
+from .somad import Somad
+from .personas import Personas
 
 task = f"""[Task]
 You will be given an ongoing discussion from a forum. Your task is to select the single most appropriate persona to reply to the last post.

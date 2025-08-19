@@ -1,6 +1,4 @@
-from typing import List
-from open_router_models import StrongModels
-from generic_persona import GenericPersona
+from ..generic_persona import GenericPersona
 class TheAdministrator(GenericPersona):
     @property
     def task(self) -> str:

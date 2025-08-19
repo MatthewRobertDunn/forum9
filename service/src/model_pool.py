@@ -1,6 +1,4 @@
-from model import Model
-
-
+from .model import Model
 class ModelPool:
     def __init__(self):
         self._models = {}

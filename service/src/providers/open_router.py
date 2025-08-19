@@ -1,13 +1,10 @@
-import somad
-from somad import Somad
-
+from ..somad import Somad
 from openai import OpenAI
 
 client = OpenAI(
     base_url="https://openrouter.ai/api/v1",
     api_key="YOUR_OPENROUTER_API_KEY",  # Replace with your actual API key
 )
-
 
 def respond(somad: Somad) -> str:
     response = client.chat.completions.create(

@@ -1,6 +1,6 @@
 
-from somad import Somad
-from personas import Personas
+from .somad import Somad
+from .personas import Personas
 import random
 
 

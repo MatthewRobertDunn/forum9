@@ -1,11 +1,6 @@
-from generic_persona import GenericPersona
-from open_router_models import StrongModels
-import os
-import sys
+from ..generic_persona import GenericPersona
+from ..open_router_models import StrongModels
 from typing import List
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
-
 class StrongSomad(GenericPersona):
     @property
     def temperature(self) -> float:

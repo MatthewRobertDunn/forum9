@@ -1,7 +1,7 @@
 import time
 import boto3
-from config import QUEUE_URL
-from message_handler import handle_request
+from .config import QUEUE_URL
+from .message_handler import handle_request
 
 # Initialize the SQS client
 sqs = boto3.client('sqs')

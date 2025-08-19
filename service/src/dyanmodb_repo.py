@@ -1,5 +1,5 @@
 import boto3
-from config import TABLE_NAME
+from .config import TABLE_NAME
 
 
 def insert_thread(thread):

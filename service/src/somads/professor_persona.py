@@ -1,8 +1,6 @@
 from typing import List
-from open_router_models import StrongModels
-from personas import Personas
-from generic_persona import GenericPersona
-
+from ..open_router_models import StrongModels
+from ..generic_persona import GenericPersona
 
 class ProfessorPersona(GenericPersona):
     @property

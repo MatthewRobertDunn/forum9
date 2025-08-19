@@ -91,7 +91,7 @@ class Somad:
         return text
 
     @retry(times=3, exceptions=(Exception,))
-    def respond_with_model(self, enable_notification) -> Tuple[Optional[str], Optional[Model]]:
+    def respond_with_model(self, enable_notification = False) -> Tuple[Optional[str], Optional[Model]]:
         model = self.select_model()
         if not model:
             print("No allowed models available")

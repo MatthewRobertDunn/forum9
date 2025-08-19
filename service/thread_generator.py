@@ -130,7 +130,7 @@ def generate_post(id: int,  ai_input: List[str], chosen_persona: str) -> Dict[st
         print("Skipping empty response")
         return None
     return {
-        "id": str(id),
+        "id": id,
         "persona": chosen_persona,
         "content": cleaned_response
     }

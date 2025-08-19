@@ -5,9 +5,9 @@ from .markdown_persona import MarkdownPersona
 from .personas import Personas
 from .somad import Somad
 from .somads.the_cube import TheCube
-from somads.rick_sanchez import RickSanchez
-from somads.strong_somad import StrongSomad
-from somads.professor_persona import ProfessorPersona
+from .somads.rick_sanchez import RickSanchez
+from .somads.strong_somad import StrongSomad
+from .somads.professor_persona import ProfessorPersona
 from .somads.administrator import TheAdministrator
 from .somads.roman_emperor import RomanEmperor
 import random

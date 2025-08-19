@@ -1,6 +1,5 @@
 
 from typing import List
-from personas import Personas
 from ..generic_persona import GenericPersona
 from ..open_router_models import FastModels
 class TheCube(GenericPersona):

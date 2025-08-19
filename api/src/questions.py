@@ -1,7 +1,8 @@
+#!/usr/bin/env python
 from boto3.dynamodb.conditions import Key
 from datetime import datetime, timezone
 from datetime import datetime
-from dynamodb import table
+from .dynamodb import table
 
 def questions(date: str = None, reverse = None):  
     # Convert the date string to a datetime object

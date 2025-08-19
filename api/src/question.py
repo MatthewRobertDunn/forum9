@@ -1,5 +1,5 @@
 from boto3.dynamodb.conditions import Key
-from dynamodb import table
+from .dynamodb import table
 
 def question(id: str):
     # Query the table

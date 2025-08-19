@@ -5,11 +5,11 @@ import contextvars
 thread_id_var = contextvars.ContextVar("thread_id")
 
 
-def set_thread_id(thread_id):
+def set_thread_id(thread_id: str):
     thread_id_var.set(thread_id)
 
 
-def current_thread_id():
+def current_thread_id() -> str:
     return thread_id_var.get(None)  # default to None if not set
 
 

@@ -18,8 +18,7 @@ def publish_thread_notification(notification: Notification):
     if tid is None:
         raise RuntimeError(
             "publish_thread_notification called outside thread_scope")
-    socket.send_multipart([tid.encode(),
-                          json.dumps(asdict(notification)).encode()])
+    publish(tid, notification)
 
 
 def publish(topic: str, message: Any):

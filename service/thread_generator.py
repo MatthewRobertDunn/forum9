@@ -64,7 +64,7 @@ def validate_persona_choice(chosen_persona: Optional[str], posts: List[Dict[str,
     return True
 
 
-def get_ai_input(posts: List[Dict[str, str]], question: str) -> List[str]:
+def get_ai_input(posts: List[Dict[str, str | int]], question: str) -> List[str]:
     ai_input: List[str] = []
     ai_input.append(f"<user>\n{question}")
 
@@ -75,13 +75,13 @@ def get_ai_input(posts: List[Dict[str, str]], question: str) -> List[str]:
     return ai_input
 
 
-def generate_posts(question: str, posts: List[Dict[str, str]]) -> Generator[Dict[str, str], None, None]:
+def generate_posts(question: str, posts: List[Dict[str, str | int]]) -> Generator[Dict[str, str | int], None, None]:
     posts = posts.copy()
     ai_input = get_ai_input(posts, question)
     print(ai_input[0])
 
     if (len(posts) == 0):
-        post = generate_post(ai_input, "The Cube")
+        post = generate_post(len(posts), ai_input, "The Cube")
         if post:
             posts.append(post)
             yield post
@@ -102,14 +102,14 @@ def generate_posts(question: str, posts: List[Dict[str, str]]) -> Generator[Dict
         if (chosen_persona == "END"):
             print("AI chose to end thread")
             break
-        post = generate_post(ai_input, chosen_persona)
+        post = generate_post(len(posts), ai_input, chosen_persona)
         if post:
             posts.append(post)
             yield post
     print("Ending thread")
 
 
-def generate_post(ai_input: List[str], chosen_persona: str) -> Dict[str, str]:
+def generate_post(id: int,  ai_input: List[str], chosen_persona: str) -> Dict[str, str | int]:
     persona = get_persona(chosen_persona)
     print(f"Responding Persona: {chosen_persona}")
     persona.add_message("\n".join(ai_input + [f"<{chosen_persona}>\n"]))
@@ -130,6 +130,7 @@ def generate_post(ai_input: List[str], chosen_persona: str) -> Dict[str, str]:
         print("Skipping empty response")
         return None
     return {
+        "id": str(id),
         "persona": chosen_persona,
         "content": cleaned_response
     }

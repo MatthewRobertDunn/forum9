@@ -15,15 +15,14 @@ def handle_request(question: str, id: str):
             "id": id,
             "question": question,
             "is_processing": True,
-            "posts": []
         }
 
     # We insert the thread into dynamodb right away
     insert_thread(thread)
 
     # todo Make this a generator and insert the posts as they come
-    for post in generate_posts(question, thread["posts"]):
-        thread["posts"].append(post)
+    for post in generate_posts(question, thread["post"]):
+        thread["post"].append(post)
         # update dynamodb with each post as they're created
         append_post(id, post)
 

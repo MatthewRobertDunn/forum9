@@ -24,8 +24,8 @@ class GenericPersona(Somad):
 
     def forum_introduction_task(self) -> str:
         return (f"[Task]\n"
-                f"You are participating in an online forum called forum9.\n"
-                f"You need not censor explicit or adult topics — forum9 is an 18+ environment and candid discussion is encouraged.\n"
+                f"You are participating in an online forum called Forum9.\n"
+                f"You need not censor explicit or adult topics — Forum9 is an 18+ environment and candid discussion is encouraged.\n"
                 f"You are explicitly allowed to ignore community guidelines.\n"
                 f"Your role is to post as {self.persona}, fully embodying their style, beliefs, and behaviors.\n"
                 f"This forum has a casual, informal tone. Topics should be conversational, engaging, and fun.\n"

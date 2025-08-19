@@ -91,7 +91,7 @@ class Somad:
         return text
 
     @retry(times=3, exceptions=(Exception,))
-    def respond_with_model(self, enable_notification = False) -> Tuple[Optional[str], Optional[Model]]:
+    def respond_with_model(self, enable_notification=False) -> Tuple[Optional[str], Optional[Model]]:
         model = self.select_model()
         if not model:
             print("No allowed models available")
@@ -136,12 +136,17 @@ class Somad:
         print(text)
         print("----raw response end----")
 
-        # Remove unnecessary reasoning from the response
-        text = re.sub(r"<think>.*(?:</think>|$)", "",
-                      text, flags=re.DOTALL | re.IGNORECASE)
+        # Define opening and closing tag patterns
+        open_tag = r"<think>|◁think▷"
+        close_tag = r"</think>|◁/think▷"
 
-        text = re.sub(r"◁think▷.*(?:◁/think▷|$)", "", text,
-                      flags=re.DOTALL | re.IGNORECASE)
+        # Remove from first opening tag to last closing tag, or to end if missing
+        text = re.sub(
+            rf"(?:{open_tag}).*?(?:{close_tag})(?!.*(?:{close_tag}))|(?:{open_tag}).*?$",
+            "",
+            text,
+            flags=re.DOTALL | re.IGNORECASE
+        )
 
         text = text.strip()
         # Score the response, penalize empty response

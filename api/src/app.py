@@ -1,10 +1,9 @@
-from flask import Flask, Response, request, jsonify
-import time
-from questions import questions as api_questions
-from question import question as api_question
-from submit import submit as api_submit
-from config import PUBLISH_TOKEN
-import events as api
+from flask import Flask, request, jsonify
+from .questions import questions as api_questions
+from .question import question as api_question
+from .submit import submit as api_submit
+from .config import PUBLISH_TOKEN
+from . import events as api
 
 app = Flask(__name__)
 

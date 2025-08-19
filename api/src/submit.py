@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 import boto3
-from config import QUEUE_URL
-from request_handler import handle_request
+from .config import QUEUE_URL
 
 def submit(body):
     # Initialize the SQS client

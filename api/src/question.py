@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 from boto3.dynamodb.conditions import Key
 from request_handler import handle_request
 from dynamodb import table

@@ -1,7 +1,5 @@
-#!/usr/bin/env python
 from boto3.dynamodb.conditions import Key
 from datetime import datetime, timezone
-from request_handler import handle_request
 from datetime import datetime
 from dynamodb import table
 

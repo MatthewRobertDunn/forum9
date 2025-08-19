@@ -1,9 +1,27 @@
 from datetime import datetime, timezone
+from .scopes import thread_scope
 from .thread_generator import generate_posts
 from .dyanmodb_repo import insert_thread, get_thread, append_post, remove_is_processing
 
 
 def handle_request(question: str, id: str):
+    """
+    Handle a single request from the SQS queue.
+
+    This function will generate a thread of posts in response to a given question and
+    insert them into the dynamodb table. It will also mark the thread as complete when
+    finished.
+
+    :param question: The question to be answered
+    :type question: str
+    :param id: The id of the thread
+    :type id: str
+    """
+    with thread_scope(id):
+        _handle_request(question, id)
+
+
+def _handle_request(question: str, id: str):
 
     # Fetch any existing discussion
     thread = get_thread(id)

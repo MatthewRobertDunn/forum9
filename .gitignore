@@ -3,3 +3,4 @@ __pycache__
 service/config.py
 api/config.py
 
+/service/src/config.py

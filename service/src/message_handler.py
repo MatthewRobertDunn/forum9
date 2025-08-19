@@ -15,6 +15,7 @@ def handle_request(question: str, id: str):
             "id": id,
             "question": question,
             "is_processing": True,
+            "post": []
         }
 
     # We insert the thread into dynamodb right away

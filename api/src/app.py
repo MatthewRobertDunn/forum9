@@ -10,15 +10,6 @@ app = Flask(__name__)
 app.json = SimpleJSONProvider(app)
 
 
-@app.after_request
-def auto_jsonify(response):
-    # If the view already returned a Response, don't touch it
-    if isinstance(response, Response):
-        return response
-
-    return jsonify(response)
-
-
 @app.route("/questions")
 def questions():
     return api_questions(request.args.get("date"), request.args.get("reverse"))
@@ -31,7 +22,7 @@ def question():
 
 @app.route("/submit", methods=["POST"])
 def submit():
-    return api_submit(request.get_json())
+    return jsonify(api_submit(request.get_json()))
 
 
 @app.route("/events", methods=["GET"])

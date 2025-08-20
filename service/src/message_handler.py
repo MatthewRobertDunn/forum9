@@ -1,4 +1,8 @@
 from datetime import datetime, timezone
+from random import random
+
+from .notifications.notification import NewPostNotification
+from .notifications.publisher import publish_thread_notification
 from .scopes.thread_scope import thread_scope
 from .thread_generator import generate_posts
 from .dyanmodb_repo import insert_thread, get_thread, append_post, remove_is_processing
@@ -22,7 +26,6 @@ def handle_request(question: str, id: str):
 
 
 def _handle_request(question: str, id: str):
-
     # Fetch any existing discussion
     thread = get_thread(id)
     if (not thread):
@@ -31,6 +34,7 @@ def _handle_request(question: str, id: str):
             "year": created_date.year,
             "created_date": created_date.isoformat(),
             "id": id,
+            "count": random.randint(1, 30) + 2,
             "question": question,
             "is_processing": True,
             "post": []
@@ -40,10 +44,13 @@ def _handle_request(question: str, id: str):
         insert_thread(thread)
 
     # todo Make this a generator and insert the posts as they come
-    for post in generate_posts(question, thread["post"]):
+    for post in generate_posts(question, thread["post"], thread["count"]):
         thread["post"].append(post)
         # update dynamodb with each post as they're created
         append_post(id, post)
+        # notify any subscribers that a new post has been added
+        publish_thread_notification(NewPostNotification(
+            id, persona=post["persona"], post=post["content"]))
 
     # Mark that the thread is complete in dynamodb
     remove_is_processing(id)

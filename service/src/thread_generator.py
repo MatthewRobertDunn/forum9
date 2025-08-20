@@ -56,7 +56,7 @@ def get_ai_input(posts: List[Dict[str, str | int]], question: str) -> List[str]:
     return ai_input
 
 
-def generate_posts(question: str, posts: List[Dict[str, str | int]]) -> Generator[Dict[str, str | int], None, None]:
+def generate_posts(question: str, posts: List[Dict[str, str | int]], max_posts: int) -> Generator[Dict[str, str | int], None, None]:
     posts = posts.copy()
     ai_input = get_ai_input(posts, question)
     print(ai_input[0])
@@ -67,7 +67,6 @@ def generate_posts(question: str, posts: List[Dict[str, str | int]]) -> Generato
             posts.append(post)
             yield post
 
-    max_posts = random.randint(1, 30) + 2
     print(f"Max posts: {max_posts}")
     while len(posts) < max_posts:
         ai_input = get_ai_input(posts, question)

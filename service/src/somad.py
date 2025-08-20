@@ -133,7 +133,7 @@ class Somad:
                     if delta:
                         print(".", end="", flush=True)
                         text_parts.append(delta)
-                        if (enable_notification):
+                        if (enable_notification and len(text_parts) % 10 == 0):
                             publish_thread_notification(TypingNotification(
                                 persona=self.persona, count=len(text_parts)))
             text = "".join(text_parts)

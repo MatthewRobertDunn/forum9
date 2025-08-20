@@ -9,15 +9,14 @@ from . import events as api
 app = Flask(__name__)
 app.json = SimpleJSONProvider(app)
 
+
 @app.after_request
 def auto_jsonify(response):
     # If the view already returned a Response, don't touch it
     if isinstance(response, Response):
         return response
-    # If it returned a dict or list, jsonify it
-    if isinstance(response, (dict, list)):
-        return jsonify(response)
-    return response
+
+    return jsonify(response)
 
 
 @app.route("/questions")

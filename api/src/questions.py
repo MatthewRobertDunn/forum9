@@ -25,7 +25,7 @@ def questions(date: str = None, reverse = None):
     response = table.query(
         IndexName="year-created_date-index",
         KeyConditionExpression=Key('year').eq(parsed_date.year) & sort_by,
-        ProjectionExpression='id, question, created_date',
+        ProjectionExpression='id, question, created_date, count',
         ScanIndexForward=True if reverse else False,  # False to order by descending,
         Limit=20
     )

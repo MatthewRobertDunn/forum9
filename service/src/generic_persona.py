@@ -16,7 +16,7 @@ class GenericPersona(Somad):
 
     @property
     def temperature(self) -> float:
-        return random.random()
+        return (random.random() * 0.5) + 0.5
 
     @property
     def top_p(self) -> float:

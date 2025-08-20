@@ -1,6 +1,5 @@
 from datetime import datetime, timezone
-from random import random
-
+import random
 from .notifications.notification import NewPostNotification
 from .notifications.publisher import publish_thread_notification
 from .scopes.thread_scope import thread_scope

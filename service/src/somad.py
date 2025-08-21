@@ -1,5 +1,5 @@
-from .notifications.notification import TypingNotification
-from .notifications.publisher import publish_thread_notification
+from .notifications.notifications import TypingNotification
+from .notifications.bus import publish_thread_notification
 from .open_router_models import GeneralModels, HugeTokenModels, StrongModels
 from .retry_decorator import retry
 import random

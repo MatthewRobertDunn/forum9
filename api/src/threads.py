@@ -4,7 +4,7 @@ from datetime import datetime, timezone
 from datetime import datetime
 from .dynamodb import table
 
-def questions(date: str = None, reverse = None):  
+def threads(date: str = None, reverse = None):  
     # Convert the date string to a datetime object
     # and set a default value
     if date is not None:

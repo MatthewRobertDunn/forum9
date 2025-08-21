@@ -28,7 +28,7 @@ def append_post(id: str, new_post: dict[str, str]):
 
     table.update_item(
         Key={'id': id},
-        UpdateExpression='SET post = list_append(if_not_exists(post, :empty_list), :new_post)',
+        UpdateExpression='SET posts = list_append(if_not_exists(posts, :empty_list), :new_post)',
         ExpressionAttributeValues={
             ':new_post': [new_post],  # Pass as a list for list_append
             ':empty_list': []          # Ensures posts exists if empty

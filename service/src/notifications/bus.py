@@ -3,23 +3,18 @@ from dataclasses import asdict, is_dataclass
 import json
 from typing import Any
 import zmq
-from .notification import Notification
+from . import topics
+from .notifications import NewPostNotification
 from ..config import ZMQ_BINDING
 from ..scopes.thread_scope import current_thread_id
-# Create an asyncio-aware context
+# Create a ZMQ context
 context = zmq.Context()
 # Create a PUB socket
 print(f"Starting ZMQ Binding to {ZMQ_BINDING}")
 socket = context.socket(zmq.PUB)
-socket.bind(ZMQ_BINDING)  # Bind to all interfaces on port 5555
-
-
-def publish_thread_notification(notification: Notification):
-    tid = current_thread_id()
-    if tid is None:
-        raise RuntimeError(
-            "publish_thread_notification called outside thread_scope")
-    publish(tid, notification)
+for binding in ZMQ_BINDING:
+    print(f"Binding to {binding}")
+    socket.bind(binding)
 
 
 def publish(topic: str, message: Any):

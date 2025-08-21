@@ -9,16 +9,10 @@ class Notification:
 
 @dataclass
 class NewPostNotification(Notification):
+    thread_id: str
     persona: str
     post: str
-    id: int
-
-    def __init__(self, id: int, persona: str, post: str):
-        self.id = id
-        self.evt = "new"
-        self.persona = persona
-        self.post = post
-
+    post_id: int
 
 @dataclass
 class TypingNotification(Notification):

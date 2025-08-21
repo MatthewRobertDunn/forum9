@@ -1,25 +1,13 @@
 # notification.py
 from dataclasses import dataclass
 
-
 @dataclass
-class Notification:
-    evt: str
-
-
-@dataclass
-class NewPostNotification(Notification):
+class NewPostNotification:
     thread_id: str
-    persona: str
-    post: str
-    post_id: int
+    post: dict
+
 
 @dataclass
-class TypingNotification(Notification):
+class TypingNotification:
     persona: str
     count: int
-
-    def __init__(self, persona: str, count: int):
-        self.evt = "typing"
-        self.persona = persona
-        self.count = count

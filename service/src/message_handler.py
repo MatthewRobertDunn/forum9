@@ -50,13 +50,7 @@ def _handle_request(question: str, id: str):
         # update dynamodb with each post as they're created
         append_post(id, post)
         # notify any subscribers that a new post has been added
-        bus.publish(topics.new_post,
-                    NewPostNotification(
-                        id,
-                        post["id"],
-                        persona=post["persona"],
-                        post=post["content"]
-                    ))
+        bus.publish(topics.new_post, NewPostNotification(id, post))
 
     # Mark that the thread is complete in dynamodb
     remove_is_processing(id)

@@ -1,4 +1,7 @@
+from threading import Thread
 from flask import Flask, request, jsonify
+
+from src.middleware import bus
 from .middleware.simple_json_provider import SimpleJSONProvider
 from .middleware.caching_decorator import cache_json_response
 from .threads import threads as api_threads
@@ -8,6 +11,8 @@ from .config import PUBLISH_TOKEN
 from . import events as api
 app = Flask(__name__)
 app.json = SimpleJSONProvider(app)
+bus.start()
+
 
 @app.after_request
 def add_header(response):
@@ -31,7 +36,7 @@ def threads():
 
 
 @app.route("/threads/<id>")
-#@cache_json_response(lambda x: str(len(x.get("post", []))), lambda id: f"thread-{id}")
+# @cache_json_response(lambda x: str(len(x.get("post", []))), lambda id: f"thread-{id}")
 def thread(id: str):
     """
     Retrieve a single thread by id.

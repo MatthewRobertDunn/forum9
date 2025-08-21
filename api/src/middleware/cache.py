@@ -40,6 +40,4 @@ def cache_json_response(etag_func, key_func=get_cache_key):
     return decorator
 
 def get_cached_response(cache_key: str):
-    if cache_key in _cache:
-        return _cache[cache_key]
-    return None
+    return _cache.get(cache_key, None)

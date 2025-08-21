@@ -1,18 +1,19 @@
 from threading import Thread
 from flask import Flask, request, jsonify
 
-from src.middleware import bus
+from .middleware import bus
 from .middleware.simple_json_provider import SimpleJSONProvider
-from .middleware.caching_decorator import cache_json_response
+from .middleware.cache import cache_json_response
 from .threads import threads as api_threads
 from .thread import thread as api_thread
 from .submit import submit as api_submit
 from .config import PUBLISH_TOKEN
 from . import events as api
+from .handlers import new_post_handler
 app = Flask(__name__)
 app.json = SimpleJSONProvider(app)
 bus.start()
-
+new_post_handler.register()
 
 @app.after_request
 def add_header(response):

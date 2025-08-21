@@ -13,8 +13,8 @@ def start():
     Thread(target=subscriber, daemon=True).start()
 
 
-def register_handler(self, topic, func):
-    self.handlers[topic] = func
+def register_handler(topic, func):
+    handlers[topic] = func
 
 
 def subscriber():
@@ -28,7 +28,7 @@ def subscriber():
         topic, content = socket.recv_multipart()
         topic = topic.decode()
         content = content.decode()
-        handler = handlers.get(topic, None)
+        handler = handlers.get(topic)
 
         if handler:
             try:

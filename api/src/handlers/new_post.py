@@ -1,10 +1,11 @@
+from decimal import Decimal
 import json
 from typing import Dict, List
 from ..middleware.bus import register_handler
 from ..middleware.cache import get_cached_response
 
 
-def post_exists(posts: List[Dict[str, str]], post_id: int) -> bool:
+def post_exists(posts: List[Dict[str, str]], post_id) -> bool:
     for post in posts:
         if post["id"] == post_id:
             return True
@@ -27,12 +28,12 @@ def on_new_post(content):
     if (not posts):
         return
 
-    if (post_exists(posts, new_post_id)):
+    if (post_exists(posts, Decimal(new_post_id))):
         return
-    
+
     print(f"Appended new post to thread {thread_id}")
     posts.append(new_post)
-    
+
     # sort posts by id ascending
     posts.sort(key=lambda x: x["id"])
 

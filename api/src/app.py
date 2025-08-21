@@ -9,11 +9,11 @@ from .thread import thread as api_thread
 from .submit import submit as api_submit
 from .config import PUBLISH_TOKEN
 from . import events as api
-from .handlers import new_post
+from . import handlers
 app = Flask(__name__)
 app.json = SimpleJSONProvider(app)
 bus.start()
-new_post.register()
+handlers.new_post.register()
 
 @app.after_request
 def add_header(response):

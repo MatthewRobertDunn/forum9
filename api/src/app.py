@@ -1,5 +1,6 @@
 from flask import Flask, Response, request, jsonify
-from .simple_json_provider import SimpleJSONProvider
+from .middleware.simple_json_provider import SimpleJSONProvider
+from .middleware.caching_decorator import cache_json_response
 from .questions import questions as api_questions
 from .question import question as api_question
 from .submit import submit as api_submit
@@ -16,6 +17,7 @@ def questions():
 
 
 @app.route("/question")
+@cache_json_response(lambda x: str(len(x.get("post", []))))
 def question():
     return api_question(request.args.get("id"))
 

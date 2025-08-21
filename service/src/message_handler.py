@@ -1,7 +1,7 @@
 from datetime import datetime, timezone
 import random
 
-from notifications import topics
+from .notifications import topics
 from .notifications.notifications import NewPostNotification
 from .notifications import bus
 from .scopes.thread_scope import thread_scope

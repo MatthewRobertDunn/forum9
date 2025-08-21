@@ -37,7 +37,7 @@ def threads():
 
 
 @app.route("/threads/<id>")
-# @cache_json_response(lambda x: str(len(x.get("post", []))), lambda id: f"thread-{id}")
+@cache_json_response(lambda x: str(len(x.get("post", []))), lambda id: f"thread-{id}")
 def thread(id: str):
     """
     Retrieve a single thread by id.

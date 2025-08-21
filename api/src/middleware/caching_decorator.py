@@ -24,7 +24,7 @@ def cache_json_response(etag_func, key_func=get_cache_key):
     def decorator(f):
         @wraps(f)
         def wrapped(*args, **kwargs):
-            cache_key = key_func(request)
+            cache_key = key_func(*args) if key_func else get_cache_key(request)
             if cache_key in _cache:
                 cached_response, cached_etag = _cache[cache_key]
                 if etag_func and request.headers.get('If-None-Match') == cached_etag:

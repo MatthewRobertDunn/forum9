@@ -1,5 +1,6 @@
+from .notifications import topics
 from .notifications.notifications import TypingNotification
-from .notifications.bus import publish_thread_notification
+from .notifications import bus
 from .open_router_models import GeneralModels, HugeTokenModels, StrongModels
 from .retry_decorator import retry
 import random
@@ -111,8 +112,8 @@ class Somad:
         text = ""
 
         if (enable_notification):
-            publish_thread_notification(
-                TypingNotification(persona=self.persona, count=0))
+            bus.publish(topics.typing, TypingNotification(
+                persona=self.persona, count=0))
 
         try:
             response = client.chat.completions.create(
@@ -134,7 +135,7 @@ class Somad:
                         print(".", end="", flush=True)
                         text_parts.append(delta)
                         if (enable_notification and len(text_parts) % 10 == 0):
-                            publish_thread_notification(TypingNotification(
+                            bus.publish(topics.typing, TypingNotification(
                                 persona=self.persona, count=len(text_parts)))
             text = "".join(text_parts)
             print()

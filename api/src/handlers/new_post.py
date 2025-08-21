@@ -23,8 +23,8 @@ def on_new_post(content):
         print(f"Thread {thread_id} not found in cache, skipping")
         return
 
-    posts = thread.get("post")
-    if (posts):
+    posts = thread.get("posts")
+    if (not posts):
         return
 
     if (post_exists(posts, new_post_id)):

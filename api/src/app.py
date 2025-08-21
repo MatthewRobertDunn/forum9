@@ -14,10 +14,6 @@ app.json = SimpleJSONProvider(app)
 def questions():
     """
     Retrieve a list of questions from the forum.
-
-    The endpoint will return a JSON array of questions, with each question
-    containing the fields "id", "question", "created_date", and "post".
-
     :param date: The start date for the retrieved questions, in ISO 8601 format.
         If not provided, the most recent questions will be retrieved.
     :type date: str
@@ -25,7 +21,6 @@ def questions():
         If not provided, the questions will be sorted in ascending chronological order.
     :type reverse: str
     :return: A JSON array of questions
-    :rtype: list
     """
     return api_questions(request.args.get("date"), request.args.get("reverse"))
 
@@ -35,16 +30,6 @@ def questions():
 def question(id: str):
     """
     Retrieve a single question by id.
-
-    This endpoint will return a JSON payload containing the question with the
-    given id. The payload will contain the question text, the id of the question,
-    and a list of posts as a list of objects with the keys "content", "persona",
-    and "date" corresponding to the content of the post, the name of the persona
-    who made the post, and the date the post was made.
-
-    :param id: The id of the question to be retrieved
-    :type id: str
-
     :return: A JSON response containing the question
     """
     return api_question(id)
@@ -54,15 +39,7 @@ def question(id: str):
 def submit():
     """
     Submit a new question to the forum.
-
-    This endpoint will accept a JSON payload containing a single field, "message", which
-    will be used to generate a new question in the forum.
-
-    :param message: The message to be posted as the new question
-    :type message: str
-
     :return: A JSON response containing the id of the new question
-    :rtype: dict
     """
     return jsonify(api_submit(request.get_json()))
 

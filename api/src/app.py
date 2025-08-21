@@ -9,6 +9,11 @@ from . import events as api
 app = Flask(__name__)
 app.json = SimpleJSONProvider(app)
 
+@app.after_request
+def add_header(response):
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    return response
+
 
 @app.route("/questions")
 def questions():
@@ -26,7 +31,7 @@ def questions():
 
 
 @app.route("/questions/<id>")
-@cache_json_response(lambda x: str(len(x.get("post", []))), lambda x: f"question-{x}")
+@cache_json_response(lambda x: str(len(x.get("post", []))), lambda id: f"question-{id}")
 def question(id: str):
     """
     Retrieve a single question by id.

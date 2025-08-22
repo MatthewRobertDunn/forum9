@@ -26,7 +26,7 @@ def on_new_post(content):
     thread_id = np["thread_id"]
     new_post = np["post"]
     new_post_id = new_post["id"]
-    print(f"New post in thread {thread_id}: {new_post_id}")
+    print(f"Caching new post in thread {thread_id}: {new_post_id}")
     cache_key = f"thread-{thread_id}"
     thread = get_cached_response(cache_key)
 

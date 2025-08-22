@@ -2,7 +2,7 @@ from decimal import Decimal
 import json
 from typing import Dict, List
 from ..middleware.bus import register_handler
-from ..middleware.cache import get_cached_response, invalidate_cached_response
+from ..middleware.cache import cache_response, get_cached_response, invalidate_cached_response
 
 
 def post_exists(posts: List[Dict[str, str]], post_id) -> bool:
@@ -11,6 +11,13 @@ def post_exists(posts: List[Dict[str, str]], post_id) -> bool:
             return True
     return False
 
+
+def on_new_thread(content):
+    nt = json.loads(content)
+    thread_id = nt["id"]
+    cache_key = f"thread-{thread_id}"
+    print(f"Caching new thread {thread_id}")
+    cache_response(cache_key, nt)
 
 def on_new_post(content):
     np = json.loads(content)

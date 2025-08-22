@@ -44,6 +44,7 @@ def _handle_request(question: str, id: str):
         # We insert the thread into dynamodb right away
         insert_thread(thread)
         # notify any subscribers that a new thread has been created
+        print("Publishing new thread")
         bus.publish(topics.new_thread, thread)
 
     # todo Make this a generator and insert the posts as they come

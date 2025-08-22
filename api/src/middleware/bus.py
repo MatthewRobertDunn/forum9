@@ -3,6 +3,7 @@ import traceback
 import zmq
 from flask import Flask
 from ..config import ZMQ_BINDING
+from . import topics
 app = Flask(__name__)
 
 # Map topic -> handler function
@@ -23,8 +24,8 @@ def subscriber():
     for binding in ZMQ_BINDING:
         print(f"Connecting to {binding}")
         socket.connect(binding)
-    socket.setsockopt_string(zmq.SUBSCRIBE, "new_post")
-    socket.setsockopt_string(zmq.SUBSCRIBE, "new_thread")
+    socket.setsockopt_string(zmq.SUBSCRIBE, topics.new_post)
+    socket.setsockopt_string(zmq.SUBSCRIBE, topics.new_thread)
     while True:
         topic, content = socket.recv_multipart()
         topic = topic.decode()

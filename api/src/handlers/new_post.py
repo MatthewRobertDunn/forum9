@@ -51,3 +51,4 @@ def on_new_post(content):
 def register():
     print("Registering new_post handler")
     register_handler("new_post", on_new_post)
+    register_handler("new_thread", on_new_thread)

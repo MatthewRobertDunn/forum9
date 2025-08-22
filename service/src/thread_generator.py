@@ -47,7 +47,7 @@ def validate_persona_choice(chosen_persona: Optional[str], posts: List[Dict[str,
 
 def get_ai_input(posts: List[Dict[str, str | int]], question: str) -> List[str]:
     ai_input: List[str] = []
-    ai_input.append(f"<user>\n{question}")
+    ai_input.append(f"<Morgan Lee>\n{question}")
 
     for i, post in enumerate(posts):
         if (i == 0 and post["persona"] == "The Cube"):

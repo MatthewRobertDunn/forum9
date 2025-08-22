@@ -15,6 +15,13 @@ def post_exists(posts: List[Dict[str, str]], post_id) -> bool:
 
 
 def on_new_thread(content):
+    """
+    Handle a NewThread notification from the ZMQ queue.
+
+    The NewThread notification is triggered when a new thread is created.
+    This function caches the new thread in the cache, so that subsequent requests
+    for the thread's content will be served from the cache instead of the database.
+    """
     nt = json.loads(content)
     thread_id = nt["id"]
     cache_key = f"thread-{thread_id}"
@@ -22,6 +29,17 @@ def on_new_thread(content):
     cache_response(cache_key, nt)
 
 def on_new_post(content):
+    """
+    Handle a NewPost notification from the ZMQ queue.
+
+    The NewPost notification is triggered when a new post is created.
+    This function caches the new post in the cache, so that subsequent requests
+    for the thread's content will be served from the cache instead of the database.
+    The new post is appended to the existing list of posts for the thread,
+    and the cache is updated with the new list of posts.
+    If the new post already exists in the thread, the cache is not updated.
+    If the thread is not found in the cache, any cache item is invalidated.
+    """
     np = json.loads(content)
     thread_id = np["thread_id"]
     new_post = np["post"]

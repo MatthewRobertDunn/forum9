@@ -1,6 +1,8 @@
 from decimal import Decimal
 import json
 from typing import Dict, List
+
+from ..middleware import topics
 from ..middleware.bus import register_handler
 from ..middleware.cache import cache_response, get_cached_response, invalidate_cached_response
 
@@ -50,5 +52,5 @@ def on_new_post(content):
 
 def register():
     print("Registering new_post handler")
-    register_handler("new_post", on_new_post)
-    register_handler("new_thread", on_new_thread)
+    register_handler(topics.new_post, on_new_post)
+    register_handler(topics.new_thread, on_new_thread)

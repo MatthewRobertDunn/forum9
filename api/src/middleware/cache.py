@@ -31,13 +31,13 @@ def cache_json_response(etag_func, key_func=get_cache_key):
                 if request.headers.get('If-None-Match') == cached_etag:
                     return "", 304
                 print(f"Returning cached response for {cache_key} with ETag {cached_etag}")
-                return (cached_response, 200, {'ETag': cached_etag})
+                return (cached_response, 200, {'ETag': f'W/"{cached_etag}"'})
 
             response = f(*args, **kwargs)
             generated_etag = etag_func(response)
             print(f"Caching response for {cache_key} with ETag {generated_etag}")
             _cache[cache_key] = response
-            return (response, 200, {'ETag': generated_etag})
+            return (response, 200, {'ETag': f'W/"{generated_etag}"'})
         return wrapped
     return decorator
 

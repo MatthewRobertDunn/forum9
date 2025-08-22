@@ -40,7 +40,7 @@ def on_new_post(content):
     if (posts is None):
         return
 
-    if (post_exists(posts, Decimal(new_post_id))):
+    if (post_exists(posts, new_post_id)):
         return
 
     print(f"Appended new post to thread {thread_id}")

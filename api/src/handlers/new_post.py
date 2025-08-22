@@ -37,7 +37,7 @@ def on_new_post(content):
         return
 
     posts = thread.get("posts")
-    if (not posts):
+    if (posts is None):
         return
 
     if (post_exists(posts, Decimal(new_post_id))):

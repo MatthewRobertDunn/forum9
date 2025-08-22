@@ -41,6 +41,7 @@ def on_new_post(content):
         return
 
     if (post_exists(posts, new_post_id)):
+        print(f"Post {new_post_id} already exists in thread {thread_id}")
         return
 
     print(f"Appended new post to thread {thread_id}")

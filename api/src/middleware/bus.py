@@ -24,6 +24,7 @@ def subscriber():
         print(f"Connecting to {binding}")
         socket.connect(binding)
     socket.setsockopt_string(zmq.SUBSCRIBE, "new_post")
+    socket.setsockopt_string(zmq.SUBSCRIBE, "new_thread")
     while True:
         topic, content = socket.recv_multipart()
         topic = topic.decode()

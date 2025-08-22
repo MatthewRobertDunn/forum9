@@ -50,3 +50,6 @@ def cache_json_response(etag_func, key_func=get_cache_key):
 
 def get_cached_response(cache_key: str):
     return _cache.get(cache_key, None)
+
+def invalidate_cached_response(cache_key: str):
+    _cache.pop(cache_key, None)

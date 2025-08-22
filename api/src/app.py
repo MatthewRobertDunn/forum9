@@ -15,6 +15,7 @@ app.json = SimpleJSONProvider(app)
 bus.start()
 handlers.new_post.register()
 
+
 @app.after_request
 def add_header(response):
     response.headers['Access-Control-Allow-Origin'] = '*'
@@ -36,8 +37,13 @@ def threads():
     return api_threads(request.args.get("date"), request.args.get("reverse"))
 
 
+def _thread_etag(thread: dict) -> str:
+    if (not thread):
+        return "null"
+    return str(len(thread.get("posts", [])))
+
 @app.route("/threads/<id>")
-@cache_json_response(lambda x: str(len(x.get("posts", []))), lambda id: f"thread-{id}")
+@cache_json_response(_thread_etag, lambda id: f"thread-{id}")
 def thread(id: str):
     """
     Retrieve a single thread by id.

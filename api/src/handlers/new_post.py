@@ -2,7 +2,7 @@ from decimal import Decimal
 import json
 from typing import Dict, List
 from ..middleware.bus import register_handler
-from ..middleware.cache import get_cached_response
+from ..middleware.cache import get_cached_response, invalidate_cached_response
 
 
 def post_exists(posts: List[Dict[str, str]], post_id) -> bool:
@@ -18,10 +18,13 @@ def on_new_post(content):
     new_post = np["post"]
     new_post_id = new_post["id"]
     print(f"New post in thread {thread_id}: {new_post_id}")
-    thread = get_cached_response(f"thread-{thread_id}")
+    cache_key = f"thread-{thread_id}"
+    thread = get_cached_response(cache_key)
 
     if (not thread):
-        print(f"Thread {thread_id} not found in cache, skipping")
+        print(
+            f"Thread {thread_id} not found in cache, invalidating any cache item")
+        invalidate_cached_response(cache_key)
         return
 
     posts = thread.get("posts")
@@ -36,6 +39,7 @@ def on_new_post(content):
 
     # sort posts by id ascending
     posts.sort(key=lambda x: x["id"])
+
 
 def register():
     print("Registering new_post handler")

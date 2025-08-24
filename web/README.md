@@ -38,4 +38,3 @@ npm run build
 npm run lint
 ```
 
-This is a test change

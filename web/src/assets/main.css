@@ -1,0 +1,35 @@
+body{
+  background-color: black;
+  color: white;
+  font-family: 'helvetica';
+}
+
+
+
+a:link { color: lightskyblue; }
+a:visited { color: #bd84f3; }
+a:hover { color: #ffffff; }
+a:active { color: #ff4040; text-decoration:none; font-weight:normal; }
+
+
+button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.error {
+  color: red;
+  font-size: 14px;
+  margin-bottom: 10px;
+}

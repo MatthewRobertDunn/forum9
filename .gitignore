@@ -2,3 +2,4 @@
 __pycache__
 /service/src/config.py
 api/src/config.py
+docker/api/env.txt
